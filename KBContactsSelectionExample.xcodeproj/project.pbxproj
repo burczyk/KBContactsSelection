@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75C4CF7E4C611113F6AF743F /* libPods-KBContactsSelectionExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7BCC02A23C2CA0F417AE24 /* libPods-KBContactsSelectionExample.a */; };
 		8E89D5D71A3CA8B6001CE6D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D5D61A3CA8B6001CE6D7 /* main.m */; };
 		8E89D5DA1A3CA8B6001CE6D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D5D91A3CA8B6001CE6D7 /* AppDelegate.m */; };
 		8E89D5DD1A3CA8B6001CE6D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D5DC1A3CA8B6001CE6D7 /* ViewController.m */; };
@@ -14,6 +15,13 @@
 		8E89D5E21A3CA8B6001CE6D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E89D5E11A3CA8B6001CE6D7 /* Images.xcassets */; };
 		8E89D5E51A3CA8B6001CE6D7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E89D5E31A3CA8B6001CE6D7 /* LaunchScreen.xib */; };
 		8E89D5F11A3CA8B6001CE6D7 /* KBContactsSelectionExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D5F01A3CA8B6001CE6D7 /* KBContactsSelectionExampleTests.m */; };
+		8E89D5FE1A3CA94B001CE6D7 /* KBContactsSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D5FC1A3CA94B001CE6D7 /* KBContactsSelectionViewController.m */; };
+		8E89D5FF1A3CA94B001CE6D7 /* KBContactsSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E89D5FD1A3CA94B001CE6D7 /* KBContactsSelectionViewController.xib */; };
+		8E89D6031A3CAA75001CE6D7 /* KBContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D6011A3CAA75001CE6D7 /* KBContactCell.m */; };
+		8E89D6041A3CAA75001CE6D7 /* KBContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E89D6021A3CAA75001CE6D7 /* KBContactCell.xib */; };
+		8E89D60A1A3CAB45001CE6D7 /* KBRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D6091A3CAB45001CE6D7 /* KBRadioButton.m */; };
+		8E89D60D1A3CAEEC001CE6D7 /* KBContactsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D60C1A3CAEEC001CE6D7 /* KBContactsTableViewDataSource.m */; };
+		8E89D6101A3CB5F6001CE6D7 /* APContact+FullName.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D60F1A3CB5F6001CE6D7 /* APContact+FullName.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F7BCC02A23C2CA0F417AE24 /* libPods-KBContactsSelectionExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KBContactsSelectionExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E89D5D11A3CA8B6001CE6D7 /* KBContactsSelectionExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KBContactsSelectionExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E89D5D51A3CA8B6001CE6D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E89D5D61A3CA8B6001CE6D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +49,20 @@
 		8E89D5EA1A3CA8B6001CE6D7 /* KBContactsSelectionExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KBContactsSelectionExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E89D5EF1A3CA8B6001CE6D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E89D5F01A3CA8B6001CE6D7 /* KBContactsSelectionExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KBContactsSelectionExampleTests.m; sourceTree = "<group>"; };
+		8E89D5FB1A3CA94B001CE6D7 /* KBContactsSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBContactsSelectionViewController.h; sourceTree = "<group>"; };
+		8E89D5FC1A3CA94B001CE6D7 /* KBContactsSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBContactsSelectionViewController.m; sourceTree = "<group>"; };
+		8E89D5FD1A3CA94B001CE6D7 /* KBContactsSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KBContactsSelectionViewController.xib; sourceTree = "<group>"; };
+		8E89D6001A3CAA75001CE6D7 /* KBContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBContactCell.h; sourceTree = "<group>"; };
+		8E89D6011A3CAA75001CE6D7 /* KBContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBContactCell.m; sourceTree = "<group>"; };
+		8E89D6021A3CAA75001CE6D7 /* KBContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KBContactCell.xib; sourceTree = "<group>"; };
+		8E89D6081A3CAB45001CE6D7 /* KBRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBRadioButton.h; sourceTree = "<group>"; };
+		8E89D6091A3CAB45001CE6D7 /* KBRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBRadioButton.m; sourceTree = "<group>"; };
+		8E89D60B1A3CAEEC001CE6D7 /* KBContactsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBContactsTableViewDataSource.h; sourceTree = "<group>"; };
+		8E89D60C1A3CAEEC001CE6D7 /* KBContactsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBContactsTableViewDataSource.m; sourceTree = "<group>"; };
+		8E89D60E1A3CB5F6001CE6D7 /* APContact+FullName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "APContact+FullName.h"; sourceTree = "<group>"; };
+		8E89D60F1A3CB5F6001CE6D7 /* APContact+FullName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "APContact+FullName.m"; sourceTree = "<group>"; };
+		A9CB46BDAB0549C2A36BE3C5 /* Pods-KBContactsSelectionExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KBContactsSelectionExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KBContactsSelectionExample/Pods-KBContactsSelectionExample.debug.xcconfig"; sourceTree = "<group>"; };
+		AA483AA219930DF2E6570916 /* Pods-KBContactsSelectionExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KBContactsSelectionExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-KBContactsSelectionExample/Pods-KBContactsSelectionExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75C4CF7E4C611113F6AF743F /* libPods-KBContactsSelectionExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +84,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57D93EEB4FA514A7C53CC089 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A9CB46BDAB0549C2A36BE3C5 /* Pods-KBContactsSelectionExample.debug.xcconfig */,
+				AA483AA219930DF2E6570916 /* Pods-KBContactsSelectionExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6967E0D7F87E81DF45EC070D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F7BCC02A23C2CA0F417AE24 /* libPods-KBContactsSelectionExample.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8E89D5C81A3CA8B6001CE6D7 = {
 			isa = PBXGroup;
 			children = (
+				8E89D5FA1A3CA8CA001CE6D7 /* KBContactsSelection */,
 				8E89D5D31A3CA8B6001CE6D7 /* KBContactsSelectionExample */,
 				8E89D5ED1A3CA8B6001CE6D7 /* KBContactsSelectionExampleTests */,
 				8E89D5D21A3CA8B6001CE6D7 /* Products */,
+				57D93EEB4FA514A7C53CC089 /* Pods */,
+				6967E0D7F87E81DF45EC070D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +163,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8E89D5FA1A3CA8CA001CE6D7 /* KBContactsSelection */ = {
+			isa = PBXGroup;
+			children = (
+				8E89D5FB1A3CA94B001CE6D7 /* KBContactsSelectionViewController.h */,
+				8E89D5FC1A3CA94B001CE6D7 /* KBContactsSelectionViewController.m */,
+				8E89D5FD1A3CA94B001CE6D7 /* KBContactsSelectionViewController.xib */,
+				8E89D6001A3CAA75001CE6D7 /* KBContactCell.h */,
+				8E89D6011A3CAA75001CE6D7 /* KBContactCell.m */,
+				8E89D6021A3CAA75001CE6D7 /* KBContactCell.xib */,
+				8E89D6081A3CAB45001CE6D7 /* KBRadioButton.h */,
+				8E89D6091A3CAB45001CE6D7 /* KBRadioButton.m */,
+				8E89D60B1A3CAEEC001CE6D7 /* KBContactsTableViewDataSource.h */,
+				8E89D60C1A3CAEEC001CE6D7 /* KBContactsTableViewDataSource.m */,
+				8E89D60E1A3CB5F6001CE6D7 /* APContact+FullName.h */,
+				8E89D60F1A3CB5F6001CE6D7 /* APContact+FullName.m */,
+			);
+			path = KBContactsSelection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +189,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E89D5F41A3CA8B6001CE6D7 /* Build configuration list for PBXNativeTarget "KBContactsSelectionExample" */;
 			buildPhases = (
+				39F80C56EA2581B8040C3231 /* Check Pods Manifest.lock */,
 				8E89D5CD1A3CA8B6001CE6D7 /* Sources */,
 				8E89D5CE1A3CA8B6001CE6D7 /* Frameworks */,
 				8E89D5CF1A3CA8B6001CE6D7 /* Resources */,
+				308335FCB7A1F66B168B5A40 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -202,6 +267,8 @@
 				8E89D5E01A3CA8B6001CE6D7 /* Main.storyboard in Resources */,
 				8E89D5E51A3CA8B6001CE6D7 /* LaunchScreen.xib in Resources */,
 				8E89D5E21A3CA8B6001CE6D7 /* Images.xcassets in Resources */,
+				8E89D6041A3CAA75001CE6D7 /* KBContactCell.xib in Resources */,
+				8E89D5FF1A3CA94B001CE6D7 /* KBContactsSelectionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,14 +281,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		308335FCB7A1F66B168B5A40 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KBContactsSelectionExample/Pods-KBContactsSelectionExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		39F80C56EA2581B8040C3231 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8E89D5CD1A3CA8B6001CE6D7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E89D60A1A3CAB45001CE6D7 /* KBRadioButton.m in Sources */,
 				8E89D5DD1A3CA8B6001CE6D7 /* ViewController.m in Sources */,
 				8E89D5DA1A3CA8B6001CE6D7 /* AppDelegate.m in Sources */,
+				8E89D6101A3CB5F6001CE6D7 /* APContact+FullName.m in Sources */,
 				8E89D5D71A3CA8B6001CE6D7 /* main.m in Sources */,
+				8E89D5FE1A3CA94B001CE6D7 /* KBContactsSelectionViewController.m in Sources */,
+				8E89D6031A3CAA75001CE6D7 /* KBContactCell.m in Sources */,
+				8E89D60D1A3CAEEC001CE6D7 /* KBContactsTableViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +448,7 @@
 		};
 		8E89D5F51A3CA8B6001CE6D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9CB46BDAB0549C2A36BE3C5 /* Pods-KBContactsSelectionExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = KBContactsSelectionExample/Info.plist;
@@ -353,6 +459,7 @@
 		};
 		8E89D5F61A3CA8B6001CE6D7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA483AA219930DF2E6570916 /* Pods-KBContactsSelectionExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = KBContactsSelectionExample/Info.plist;
@@ -414,6 +521,7 @@
 				8E89D5F61A3CA8B6001CE6D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8E89D5F71A3CA8B6001CE6D7 /* Build configuration list for PBXNativeTarget "KBContactsSelectionExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +530,7 @@
 				8E89D5F91A3CA8B6001CE6D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

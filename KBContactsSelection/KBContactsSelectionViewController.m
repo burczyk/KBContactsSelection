@@ -12,7 +12,7 @@
 @interface KBContactsSelectionViewController ()
 
 @property (nonatomic, strong) KBContactsTableViewDataSource *kBContactsTableViewDataSource;
-@property (nonatomic, strong) KBContactsSelectionConfiguration *kBContactsSelectionConfiguration;
+@property (nonatomic, strong) KBContactsSelectionConfiguration *configuration;
 
 @end
 
@@ -24,7 +24,7 @@
     
     KBContactsSelectionConfiguration *configuration = [KBContactsSelectionConfiguration defaultConfiguration];
     configurationBlock(configuration);
-    vc.kBContactsSelectionConfiguration = configuration;
+    vc.configuration = configuration;
     
     return vc;
 }
@@ -32,9 +32,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _kBContactsTableViewDataSource = [[KBContactsTableViewDataSource alloc] initWithTableView:_tableView configuration:_kBContactsSelectionConfiguration];
+    _kBContactsTableViewDataSource = [[KBContactsTableViewDataSource alloc] initWithTableView:_tableView configuration:_configuration];
     _tableView.dataSource = _kBContactsTableViewDataSource;
     _tableView.delegate = _kBContactsTableViewDataSource;
+    
+    _tableView.sectionIndexColor = _configuration.tintColor;
+    _searchBar.tintColor = _configuration.tintColor;
+    
+    [self customizeColors];
+}
+
+- (void)customizeColors
+{
+    _buttonItemCancel.tintColor = _configuration.tintColor;
+    _buttonItemSelect.tintColor = _configuration.tintColor;
 }
 
 #pragma mark - UISearchBarDelegate

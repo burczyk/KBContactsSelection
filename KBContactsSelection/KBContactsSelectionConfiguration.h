@@ -9,9 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, KBContactsSelectionDestination) {
+    KBContactsSelectionDestinationMessages,
+    KBContactsSelectionDestinationEmail,
+    KBContactsSelectionDestinationCustom
+};
+
 @interface KBContactsSelectionConfiguration : NSObject
 
 @property (nonatomic, strong) UIColor *tintColor;
+@property (nonatomic, assign) KBContactsSelectionDestination destination;
 
 + (KBContactsSelectionConfiguration*)defaultConfiguration;
 

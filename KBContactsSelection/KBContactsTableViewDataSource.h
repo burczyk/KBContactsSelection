@@ -16,4 +16,8 @@
 
 - (void)runSearch:(NSString*)text;
 
+- (NSArray*)selectedContacts;
+- (NSArray*)phonesOfSelectedContacts;
+- (NSArray*)emailsOfSelectedContacts;
+
 @end

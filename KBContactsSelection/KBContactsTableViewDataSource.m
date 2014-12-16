@@ -30,6 +30,8 @@
 
 static NSString *cellIdentifier = @"KBContactCell";
 
+#pragma mark - Initialization
+
 - (instancetype)initWithTableView:(UITableView*)tableView configuration:(KBContactsSelectionConfiguration*)configuration
 {
     self = [super init];
@@ -153,6 +155,63 @@ static NSString *cellIdentifier = @"KBContactCell";
     }];
 }
 
+#pragma mark - Public Methods
+
+- (void)runSearch:(NSString*)text
+{
+    if (text.length == 0) {
+        _contacts = _unmodifiedContacts;
+    } else {
+        NSMutableArray *filteredContacts = [NSMutableArray array];
+        [_unmodifiedContacts enumerateObjectsUsingBlock:^(APContact *contact, NSUInteger idx, BOOL *stop) {
+            if ([[contact fullName] rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                [filteredContacts addObject:contact];
+            }
+        }];
+        _contacts = filteredContacts;
+    }
+    [self updateAfterModifyingContacts];
+}
+
+- (NSArray*)selectedContacts
+{
+    NSMutableArray *result = [NSMutableArray array];
+    
+    [_unmodifiedContacts enumerateObjectsUsingBlock:^(APContact *contact, NSUInteger idx, BOOL *stop) {
+        if ([_selectedContactsRecordIds containsObject:contact.recordID]) {
+            [result addObject:contact];
+        }
+    }];
+    
+    return result;
+}
+
+- (NSArray*)phonesOfSelectedContacts
+{
+    NSMutableArray *result = [NSMutableArray array];
+    
+    [[self selectedContacts] enumerateObjectsUsingBlock:^(APContact *contact, NSUInteger idx, BOOL *stop) {
+        if (contact.phonesWithLabels && contact.phonesWithLabels.count > 0) {
+            [result addObject:((APPhoneWithLabel*)contact.phonesWithLabels[0]).phone];
+        }
+    }];
+    
+    return result;
+}
+
+- (NSArray*)emailsOfSelectedContacts
+{
+    NSMutableArray *result = [NSMutableArray array];
+    
+    [[self selectedContacts] enumerateObjectsUsingBlock:^(APContact *contact, NSUInteger idx, BOOL *stop) {
+        if (contact.emails && contact.emails.count > 0) {
+            [result addObject:contact.emails[0]];
+        }
+    }];
+    
+    return result;
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -238,24 +297,6 @@ static NSString *cellIdentifier = @"KBContactCell";
 {
     KBContactCell *cell = (KBContactCell*)[tableView cellForRowAtIndexPath:indexPath];
     cell.buttonSelection.highlighted = NO;
-}
-
-#pragma mark - Search
-
-- (void)runSearch:(NSString*)text
-{
-    if (text.length == 0) {
-        _contacts = _unmodifiedContacts;
-    } else {
-        NSMutableArray *filteredContacts = [NSMutableArray array];
-        [_unmodifiedContacts enumerateObjectsUsingBlock:^(APContact *contact, NSUInteger idx, BOOL *stop) {
-            if ([[contact fullName] rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                [filteredContacts addObject:contact];
-            }
-        }];
-        _contacts = filteredContacts;
-    }
-    [self updateAfterModifyingContacts];
 }
 
 #pragma mark - Helpers

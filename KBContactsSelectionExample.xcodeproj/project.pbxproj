@@ -23,6 +23,7 @@
 		8E89D60D1A3CAEEC001CE6D7 /* KBContactsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D60C1A3CAEEC001CE6D7 /* KBContactsTableViewDataSource.m */; };
 		8E89D6101A3CB5F6001CE6D7 /* APContact+FullName.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D60F1A3CB5F6001CE6D7 /* APContact+FullName.m */; };
 		8EA2FD7B1A407C4B00332755 /* KBContactsSelectionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA2FD7A1A407C4B00332755 /* KBContactsSelectionConfiguration.m */; };
+		8EA2FD7D1A408A8000332755 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EA2FD7C1A408A8000332755 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		8E89D60F1A3CB5F6001CE6D7 /* APContact+FullName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "APContact+FullName.m"; sourceTree = "<group>"; };
 		8EA2FD791A407C4B00332755 /* KBContactsSelectionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBContactsSelectionConfiguration.h; sourceTree = "<group>"; };
 		8EA2FD7A1A407C4B00332755 /* KBContactsSelectionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBContactsSelectionConfiguration.m; sourceTree = "<group>"; };
+		8EA2FD7C1A408A8000332755 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A9CB46BDAB0549C2A36BE3C5 /* Pods-KBContactsSelectionExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KBContactsSelectionExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KBContactsSelectionExample/Pods-KBContactsSelectionExample.debug.xcconfig"; sourceTree = "<group>"; };
 		AA483AA219930DF2E6570916 /* Pods-KBContactsSelectionExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KBContactsSelectionExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-KBContactsSelectionExample/Pods-KBContactsSelectionExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EA2FD7D1A408A8000332755 /* MessageUI.framework in Frameworks */,
 				75C4CF7E4C611113F6AF743F /* libPods-KBContactsSelectionExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,6 +102,7 @@
 		6967E0D7F87E81DF45EC070D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8EA2FD7C1A408A8000332755 /* MessageUI.framework */,
 				1F7BCC02A23C2CA0F417AE24 /* libPods-KBContactsSelectionExample.a */,
 			);
 			name = Frameworks;

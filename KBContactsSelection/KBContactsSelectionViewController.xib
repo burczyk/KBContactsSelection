@@ -26,8 +26,16 @@
                     </constraints>
                     <items>
                         <navigationItem title="Search contacts" id="Rf7-hQ-7tx">
-                            <barButtonItem key="leftBarButtonItem" title="Cancel" id="J04-gD-EO4"/>
-                            <barButtonItem key="rightBarButtonItem" title="Select" id="laD-ha-fcH"/>
+                            <barButtonItem key="leftBarButtonItem" title="Cancel" id="J04-gD-EO4">
+                                <connections>
+                                    <action selector="buttonCancelPushed:" destination="-1" id="z8j-ST-er0"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem key="rightBarButtonItem" title="Select" id="laD-ha-fcH">
+                                <connections>
+                                    <action selector="buttonSelectPushed:" destination="-1" id="NfM-QG-ZST"/>
+                                </connections>
+                            </barButtonItem>
                         </navigationItem>
                     </items>
                 </navigationBar>

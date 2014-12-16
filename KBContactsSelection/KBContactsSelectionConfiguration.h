@@ -11,8 +11,7 @@
 
 typedef NS_ENUM(NSInteger, KBContactsSelectionDestination) {
     KBContactsSelectionDestinationMessages,
-    KBContactsSelectionDestinationEmail,
-    KBContactsSelectionDestinationCustom
+    KBContactsSelectionDestinationEmail
 };
 
 @interface KBContactsSelectionConfiguration : NSObject

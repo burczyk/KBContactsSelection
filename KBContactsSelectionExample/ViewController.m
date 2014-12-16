@@ -26,6 +26,7 @@
     
     KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
         configuration.tintColor = [UIColor orangeColor];
+        configuration.destination = KBContactsSelectionDestinationEmail;
     }];
     
     [self presentViewController:vc animated:YES completion:nil];

@@ -56,11 +56,18 @@ static NSString *cellIdentifier = @"KBContactCell";
 - (void)loadContacts
 {
     APAddressBook *ab = [[APAddressBook alloc] init];
-    ab.fieldsMask = APContactFieldFirstName | APContactFieldLastName | APContactFieldPhonesWithLabels | APContactFieldRecordID;
+    ab.fieldsMask = APContactFieldFirstName | APContactFieldLastName | APContactFieldPhonesWithLabels | APContactFieldEmails | APContactFieldRecordID;
     ab.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]];
-    ab.filterBlock = ^BOOL(APContact *contact){
-        return contact.phonesWithLabels.count > 0;
-    };
+    
+    if (_configuration.destination == KBContactsSelectionDestinationMessages) {
+        ab.filterBlock = ^BOOL(APContact *contact){
+            return contact.phonesWithLabels.count > 0;
+        };
+    } else {
+        ab.filterBlock = ^BOOL(APContact *contact){
+            return contact.emails.count > 0;
+        };
+    }
     
     [ab loadContacts:^(NSArray *contacts, NSError *error) {
         if (contacts) {
@@ -90,14 +97,24 @@ static NSString *cellIdentifier = @"KBContactCell";
 - (BOOL)contactsArray:(NSArray*)array containsContact:(APContact*)searchedContact
 {
     NSString *searchedContactFullName = [searchedContact fullName];
-    NSString *searchedContactPhone = ((APPhoneWithLabel*) searchedContact.phonesWithLabels[0]).phone;
     
     for (APContact *contact in array) {
         BOOL fullNamesEqual = [[contact fullName] isEqualToString:searchedContactFullName];
-        BOOL phonesEqual = [((APPhoneWithLabel*) contact.phonesWithLabels[0]).phone isEqualToString:searchedContactPhone];
         
-        if (fullNamesEqual && phonesEqual) {
-            return YES;
+        if (_configuration.destination == KBContactsSelectionDestinationMessages) {
+            NSString *searchedContactPhone = ((APPhoneWithLabel*) searchedContact.phonesWithLabels[0]).phone;
+            BOOL phonesEqual = [((APPhoneWithLabel*) contact.phonesWithLabels[0]).phone isEqualToString:searchedContactPhone];
+        
+            if (fullNamesEqual && phonesEqual) {
+                return YES;
+            }
+        } else {
+            NSString *searchedContactEmail = searchedContact.emails[0];
+            BOOL emailsEqual = [contact.emails[0] isEqualToString:searchedContactEmail];
+            
+            if (fullNamesEqual && emailsEqual) {
+                return YES;
+            }
         }
     }
     
@@ -163,10 +180,15 @@ static NSString *cellIdentifier = @"KBContactCell";
     if (contact) {
         cell.labelName.text = [contact fullName];
         
-        APPhoneWithLabel *phoneWithLabel = contact.phonesWithLabels[0];
-        if (phoneWithLabel) {
-            cell.labelPhone.text = phoneWithLabel.phone;
-            cell.labelPhoneType.text = phoneWithLabel.label;
+        if (_configuration.destination == KBContactsSelectionDestinationMessages) {
+            APPhoneWithLabel *phoneWithLabel = contact.phonesWithLabels[0];
+            if (phoneWithLabel) {
+                cell.labelPhone.text = phoneWithLabel.phone;
+                cell.labelPhoneType.text = phoneWithLabel.label;
+            }
+        } else {
+            cell.labelPhone.text = contact.emails[0];
+            cell.labelPhoneType.text = @"";
         }
         
         cell.buttonSelection.innerCircleFillColor = _configuration.tintColor;

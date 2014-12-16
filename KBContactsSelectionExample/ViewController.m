@@ -24,7 +24,10 @@
 {
     [super viewDidAppear:animated];
     
-    KBContactsSelectionViewController *vc = [[KBContactsSelectionViewController alloc] initWithNibName:@"KBContactsSelectionViewController" bundle:nil];
+    KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
+        configuration.tintColor = [UIColor orangeColor];
+    }];
+    
     [self presentViewController:vc animated:YES completion:nil];
 }
 

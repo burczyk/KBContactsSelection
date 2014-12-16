@@ -24,7 +24,7 @@
                     <items>
                         <navigationItem title="Search contacts" id="Rf7-hQ-7tx">
                             <barButtonItem key="leftBarButtonItem" title="Cancel" id="J04-gD-EO4"/>
-                            <barButtonItem key="rightBarButtonItem" title="Proceed" id="laD-ha-fcH"/>
+                            <barButtonItem key="rightBarButtonItem" title="Select" id="laD-ha-fcH"/>
                         </navigationItem>
                     </items>
                 </navigationBar>

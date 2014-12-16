@@ -61,7 +61,7 @@ class RadioButton: UIButton {
     if (self.highlighted) {
         CGContextSetFillColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
     } else if (self.selected) {
-        CGContextSetFillColorWithColor(ctx, [KBContactsSelectionViewController tintColor].CGColor);
+        CGContextSetFillColorWithColor(ctx, _innerCircleFillColor.CGColor);
     } else {
         CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
     }

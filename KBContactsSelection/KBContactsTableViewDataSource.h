@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "KBContactsSelectionConfiguration.h"
 
 @interface KBContactsTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
-- (instancetype)initWithTableView:(UITableView*)tableView;
+- (instancetype)initWithTableView:(UITableView*)tableView configuration:(KBContactsSelectionConfiguration*)configuration;
 
 - (void)runSearch:(NSString*)text;
 

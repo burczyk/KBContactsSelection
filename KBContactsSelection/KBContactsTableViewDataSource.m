@@ -15,6 +15,7 @@
 @interface KBContactsTableViewDataSource()
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) KBContactsSelectionConfiguration *configuration;
 
 @property (nonatomic, strong) NSArray *unmodifiedContacts;
 @property (nonatomic, strong) NSArray *contacts;
@@ -29,12 +30,13 @@
 
 static NSString *cellIdentifier = @"KBContactCell";
 
-- (instancetype)initWithTableView:(UITableView*)tableView
+- (instancetype)initWithTableView:(UITableView*)tableView configuration:(KBContactsSelectionConfiguration*)configuration
 {
     self = [super init];
     if (self) {
         _tableView = tableView;
         [_tableView registerNib:[UINib nibWithNibName:@"KBContactCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
+        _configuration = configuration;
         
         [self initializeArrays];
         [self loadContacts];
@@ -167,6 +169,7 @@ static NSString *cellIdentifier = @"KBContactCell";
             cell.labelPhoneType.text = phoneWithLabel.label;
         }
         
+        cell.buttonSelection.innerCircleFillColor = _configuration.tintColor;
         cell.buttonSelection.selected = [_selectedContactsRecordIds containsObject:contact.recordID];
     }
     

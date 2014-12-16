@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KBContactsSelectionConfiguration.h"
 
 @interface KBContactsSelectionViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
-+ (UIColor*)tintColor;
++ (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock;
 
 @end

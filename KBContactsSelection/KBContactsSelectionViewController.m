@@ -12,26 +12,29 @@
 @interface KBContactsSelectionViewController ()
 
 @property (nonatomic, strong) KBContactsTableViewDataSource *kBContactsTableViewDataSource;
+@property (nonatomic, strong) KBContactsSelectionConfiguration *kBContactsSelectionConfiguration;
 
 @end
 
 @implementation KBContactsSelectionViewController
 
-static UIColor *tintColor;
++ (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock
+{
+    KBContactsSelectionViewController *vc = [[KBContactsSelectionViewController alloc] initWithNibName:@"KBContactsSelectionViewController" bundle:nil];
+    
+    KBContactsSelectionConfiguration *configuration = [KBContactsSelectionConfiguration defaultConfiguration];
+    configurationBlock(configuration);
+    vc.kBContactsSelectionConfiguration = configuration;
+    
+    return vc;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    tintColor = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
-
-    _kBContactsTableViewDataSource = [[KBContactsTableViewDataSource alloc] initWithTableView:_tableView];
+    _kBContactsTableViewDataSource = [[KBContactsTableViewDataSource alloc] initWithTableView:_tableView configuration:_kBContactsSelectionConfiguration];
     _tableView.dataSource = _kBContactsTableViewDataSource;
     _tableView.delegate = _kBContactsTableViewDataSource;
-}
-
-+ (UIColor*)tintColor
-{
-    return tintColor;
 }
 
 #pragma mark - UISearchBarDelegate

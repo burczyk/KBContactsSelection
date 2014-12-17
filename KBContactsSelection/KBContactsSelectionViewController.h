@@ -20,6 +20,4 @@
 
 + (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock;
 
-- (IBAction)buttonSelectPushed:(id)sender;
-
 @end

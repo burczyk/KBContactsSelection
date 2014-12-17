@@ -22,7 +22,7 @@
         configuration.shouldShowNavigationBar = NO;
         configuration.tintColor = [UIColor colorWithRed:11.0/255 green:211.0/255 blue:24.0/255 alpha:1];
     }];
-    
+
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -32,7 +32,7 @@
         configuration.tintColor = [UIColor orangeColor];
         configuration.mode = KBContactsSelectionModeEmail;
     }];
-    
+
     [self presentViewController:vc animated:YES completion:nil];
 }
 

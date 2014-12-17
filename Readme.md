@@ -2,7 +2,7 @@
 **KBContactsSelection** is a standalone UI and logic component that allows you to easily search and select contacts in your Address Book and redirect to Mail or Messages with results.
 
 ##Showcase
-Notice elegant solution with phone numbers and emails and final redirect difference.
+Notice elegant solution with phone number, emails and final redirect difference.
 
 ![KBContactsSelection screen 1](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection.png)
 
@@ -15,12 +15,27 @@ Notice elegant solution with phone numbers and emails and final redirect differe
 pod 'KBContactsSelection'
 ```
 
+and then add required `import`:
+
+```objective-c
+#import "KBContactsSelectionViewController.h"
+```
+
 ##Configuration
 The public element of library is `KBContactsSelectionViewController` class. It contains one convenient method to create instance of itself with proper configuration:
 
 ```objective-c
 + (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock;
 ```
+
+The simplest possible usage looks like this:
+
+```objective-c
+KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:nil];
+
+[self presentViewController:vc animated:YES completion:nil];
+```
+
 
 It uses objective-c [Builder Pattern](http://en.wikipedia.org/wiki/Builder_pattern) adopted in elegant way with blocks usage. Inpiration for such solution was found [here](http://joris.kluivers.nl/blog/2014/04/08/the-builder-pattern-in-objective-c-foundation/).
 

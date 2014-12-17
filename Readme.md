@@ -82,8 +82,7 @@ KBContactsSelectionViewController *vc = [KBContactsSelectionViewController conta
 Each property of `KBContactsSelectionConfiguration` can be freely modified although it is advised not to hide navigation bar when presented and hide it when pushed.
 
 ##Example project
-Example project can be found on [GitHub](https://github.com/burczyk/KBContactsSelection).
-Open `KBContactsSelectionExample.xcworkspace`, install all required dependencies by performing `pod install` and run the demo from gif above.
+Example project is attached to this repository. Open `KBContactsSelectionExample.xcworkspace`, install all required dependencies by performing `pod install` and run the the same demo as in gif above.
 
 ##Known issues
 iOS Simulator obviously doesn't support messaging (proper alert) and apparently has some issues with presenting `MFMailComposeViewController`:
@@ -93,6 +92,8 @@ KBContactsSelectionExample[20027:5171733] _serviceViewControllerReady:error: Err
 ```
 
 It works fine on real device but fails on Simulator which is probably a bug. Some StackOverflow threads regarding this issue can be found [here](http://stackoverflow.com/questions/25604552/i-have-real-misunderstanding-with-mfmailcomposeviewcontroller-in-swift-ios8-in) and [here](http://stackoverflow.com/questions/25604552/i-have-real-misunderstanding-with-mfmailcomposeviewcontroller-in-swift-ios8-in).
+
+This is why presented email view controller in gif doesn't have recipients entered.
 
 ##Components
 ###KBContactsSelectionViewController

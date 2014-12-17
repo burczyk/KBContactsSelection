@@ -28,7 +28,7 @@ The public element of library is `KBContactsSelectionViewController` class. It c
 + (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock;
 ```
 
-The simplest possible usage looks like this:
+**The simplest possible usage** looks like this:
 
 ```objective-c
 KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:nil];

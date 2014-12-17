@@ -44,6 +44,9 @@
         _navigationBarSearchContactsHeight.constant = 0;
         _navigationBarSearchContacts.hidden = YES;
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        
+        UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
+        [self.navigationItem setRightBarButtonItem:bi animated:YES];
     }
     
     [self customizeColors];
@@ -51,8 +54,8 @@
 
 - (void)customizeColors
 {
-    _buttonItemCancel.tintColor = _configuration.tintColor;
-    _buttonItemSelect.tintColor = _configuration.tintColor;
+    _navigationBarSearchContacts.tintColor = _configuration.tintColor;
+    self.navigationController.navigationBar.tintColor = _configuration.tintColor;
 }
 
 #pragma mark - UISearchBarDelegate

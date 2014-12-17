@@ -33,29 +33,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self prepareContactsDataSource];
+    [self prepareNavigationBar];
+    [self customizeColors];
+}
+
+- (void)prepareContactsDataSource
+{
     _kBContactsTableViewDataSource = [[KBContactsTableViewDataSource alloc] initWithTableView:_tableView configuration:_configuration];
     _tableView.dataSource = _kBContactsTableViewDataSource;
     _tableView.delegate = _kBContactsTableViewDataSource;
-    
-    _tableView.sectionIndexColor = _configuration.tintColor;
-    _searchBar.tintColor = _configuration.tintColor;
-    
+}
+
+- (void)prepareNavigationBar
+{
     if (!_configuration.shouldShowNavigationBar) {
         _navigationBarSearchContactsHeight.constant = 0;
         _navigationBarSearchContacts.hidden = YES;
         self.edgesForExtendedLayout = UIRectEdgeNone;
         
-        UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
+        UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Select", nil) style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
         [self.navigationItem setRightBarButtonItem:bi animated:YES];
+        
+        self.title = NSLocalizedString(@"Search contacts", nil);
     }
-    
-    [self customizeColors];
 }
 
 - (void)customizeColors
 {
     _navigationBarSearchContacts.tintColor = _configuration.tintColor;
     self.navigationController.navigationBar.tintColor = _configuration.tintColor;
+    _searchBar.tintColor = _configuration.tintColor;
+    _tableView.sectionIndexColor = _configuration.tintColor;
 }
 
 #pragma mark - UISearchBarDelegate

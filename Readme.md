@@ -4,9 +4,7 @@
 ##Showcase
 Notice elegant solution with phone numbers and emails and final redirect difference.
 
-![KBContactsSelection screen 1](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection1.png)
-
-![KBContactsSelection screen 1](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection2.png)
+![KBContactsSelection screen 1](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection.png)
 
 ![KBContactsSelection gif](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection.gif)
 

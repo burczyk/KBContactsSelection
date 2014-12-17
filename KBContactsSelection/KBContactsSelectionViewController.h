@@ -16,7 +16,10 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonItemCancel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonItemSelect;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarSearchContacts;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarSearchContactsHeight;
 
 + (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock;
+
+- (IBAction)buttonSelectPushed:(id)sender;
 
 @end

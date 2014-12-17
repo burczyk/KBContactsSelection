@@ -40,6 +40,12 @@
     _tableView.sectionIndexColor = _configuration.tintColor;
     _searchBar.tintColor = _configuration.tintColor;
     
+    if (!_configuration.shouldShowNavigationBar) {
+        _navigationBarSearchContactsHeight.constant = 0;
+        _navigationBarSearchContacts.hidden = YES;
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
     [self customizeColors];
 }
 
@@ -69,6 +75,7 @@
 #pragma mark - IBActions
 
 - (IBAction)buttonCancelPushed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)buttonSelectPushed:(id)sender {

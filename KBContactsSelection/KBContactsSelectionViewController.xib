@@ -9,6 +9,7 @@
                 <outlet property="buttonItemCancel" destination="J04-gD-EO4" id="Bqm-6V-rtJ"/>
                 <outlet property="buttonItemSelect" destination="laD-ha-fcH" id="60U-wV-gxx"/>
                 <outlet property="navigationBarSearchContacts" destination="7im-vS-Aea" id="Oof-qE-tEo"/>
+                <outlet property="navigationBarSearchContactsHeight" destination="v5x-yQ-Nrk" id="65E-HA-zJz"/>
                 <outlet property="searchBar" destination="Byb-Dh-My7" id="OJM-np-NNn"/>
                 <outlet property="tableView" destination="Cyg-M5-sZF" id="Efi-0q-hA7"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

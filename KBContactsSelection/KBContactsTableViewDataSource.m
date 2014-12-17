@@ -151,7 +151,7 @@ static NSString *cellIdentifier = @"KBContactCell";
         [contactsInitialsSet addObject:[contact firstLetterOfFullName]];
     }];
     _sectionIndexTitles = [[contactsInitialsSet allObjects] sortedArrayUsingComparator:^NSComparisonResult(NSString *s1, NSString *s2) {
-        return [s1 compare:s2];
+        return [s1 localizedCaseInsensitiveCompare:s2];
     }];
 }
 

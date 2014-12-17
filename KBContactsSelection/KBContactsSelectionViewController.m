@@ -26,7 +26,7 @@
     KBContactsSelectionConfiguration *configuration = [KBContactsSelectionConfiguration defaultConfiguration];
     configurationBlock(configuration);
     vc.configuration = configuration;
-    
+
     return vc;
 }
 
@@ -98,7 +98,7 @@
         MFMailComposeViewController *mailComposeVC = [[MFMailComposeViewController alloc] init];
         mailComposeVC.mailComposeDelegate = self;
         [mailComposeVC setToRecipients:[_kBContactsTableViewDataSource emailsOfSelectedContacts]];
-        [mailComposeVC setSubject:@"Custom subject"];
+        
         [self presentViewController:mailComposeVC animated:YES completion:nil];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Messaging not supported", @"") message:NSLocalizedString(@"Sending emails from this device is not supported.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles: nil];

@@ -4,7 +4,7 @@
 ##Showcase
 Notice elegant solution with phone numbers and emails and final redirect difference.
 
-<video width="478" height="718">
+<video width="478" height="718" controls>
   <source src="https://github.com/burczyk/KBContactsSelection/raw/master/assets/KBContactsSelection.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>

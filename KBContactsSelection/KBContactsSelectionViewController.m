@@ -72,7 +72,7 @@
 }
 
 - (IBAction)buttonSelectPushed:(id)sender {
-    if (_configuration.destination == KBContactsSelectionDestinationMessages) {
+    if (_configuration.mode == KBContactsSelectionModeMessages) {
         [self showMessagesViewControllerWithSelectedContacts];
     } else {
         [self showEmailViewControllerWithSelectedContacts];

@@ -61,7 +61,7 @@ static NSString *cellIdentifier = @"KBContactCell";
     ab.fieldsMask = APContactFieldFirstName | APContactFieldLastName | APContactFieldPhonesWithLabels | APContactFieldEmails | APContactFieldRecordID;
     ab.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]];
     
-    if (_configuration.destination == KBContactsSelectionDestinationMessages) {
+    if (_configuration.mode == KBContactsSelectionModeMessages) {
         ab.filterBlock = ^BOOL(APContact *contact){
             return contact.phonesWithLabels.count > 0;
         };
@@ -103,7 +103,7 @@ static NSString *cellIdentifier = @"KBContactCell";
     for (APContact *contact in array) {
         BOOL fullNamesEqual = [[contact fullName] isEqualToString:searchedContactFullName];
         
-        if (_configuration.destination == KBContactsSelectionDestinationMessages) {
+        if (_configuration.mode == KBContactsSelectionModeMessages) {
             NSString *searchedContactPhone = ((APPhoneWithLabel*) searchedContact.phonesWithLabels[0]).phone;
             BOOL phonesEqual = [((APPhoneWithLabel*) contact.phonesWithLabels[0]).phone isEqualToString:searchedContactPhone];
         
@@ -239,7 +239,7 @@ static NSString *cellIdentifier = @"KBContactCell";
     if (contact) {
         cell.labelName.text = [contact fullName];
         
-        if (_configuration.destination == KBContactsSelectionDestinationMessages) {
+        if (_configuration.mode == KBContactsSelectionModeMessages) {
             APPhoneWithLabel *phoneWithLabel = contact.phonesWithLabels[0];
             if (phoneWithLabel) {
                 cell.labelPhone.text = phoneWithLabel.phone;

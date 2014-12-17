@@ -4,6 +4,17 @@
 ##Showcase
 Notice elegant solution with phone numbers and emails and final redirect difference.
 
+<video width="478" height="718">
+  <source src="https://github.com/burczyk/KBContactsSelection/raw/master/assets/KBContactsSelection.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+![KBContactsSelection screen 1](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection1.png)
+
+![KBContactsSelection screen 1](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection2.png)
+
+![KBContactsSelection gif](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection.gif)
+
 ##Installation
 **KBContactsSelection** is available via [CocoaPods](http://cocoapods.org). To use it simply add one line to your Podfile:
 

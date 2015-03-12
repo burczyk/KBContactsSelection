@@ -277,6 +277,16 @@ static NSString *cellIdentifier = @"KBContactCell";
         
         cell.buttonSelection.innerCircleFillColor = _configuration.tintColor;
         cell.buttonSelection.selected = [_selectedContactsRecordIds containsObject:contact.recordID];
+        
+        BOOL enabled = YES;
+        if (_configuration.contactEnabledValidation) {
+            if (!_configuration.contactEnabledValidation(contact)) {
+                enabled = NO;
+            }
+        }
+        cell.labelName.alpha = cell.labelPhone.alpha = (enabled? 1: 0.3);
+        cell.buttonSelection.enabled = enabled;
+        cell.userInteractionEnabled = enabled;
     }
     
     return cell;

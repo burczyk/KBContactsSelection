@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "KBContactsSelectionViewController.h"
+#import <APAddressBook/APContact.h>
+#import <APAddressBook/APPhoneWithLabel.h>
 
 @interface ViewController ()
 
@@ -29,6 +31,16 @@
         };
         configuration.selectionChangedHandler = ^(NSArray * contacts) {
             vc.title = [NSString stringWithFormat:@"%lu contacts", (unsigned long)contacts.count];
+        };
+        configuration.contactEnabledValidation = ^(id contact) {
+            APContact * _c = contact;
+            if ([_c phonesWithLabels].count > 0) {
+                NSString * phone = ((APPhoneWithLabel*) _c.phonesWithLabels[0]).phone;
+                if ([phone containsString:@"888"]) {
+                    return NO;
+                }
+            }
+            return YES;
         };
     }];
 

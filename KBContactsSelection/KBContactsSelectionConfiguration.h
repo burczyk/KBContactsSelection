@@ -10,8 +10,8 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, KBContactsSelectionMode) {
-    KBContactsSelectionModeMessages,
-    KBContactsSelectionModeEmail
+    KBContactsSelectionModeMessages     = 1 << 0,
+    KBContactsSelectionModeEmail        = 1 << 1
 };
 
 @interface KBContactsSelectionConfiguration : NSObject

@@ -29,7 +29,7 @@
 {
     NSString *fullName = [self fullName];
     if (fullName.length > 0) {
-        return [fullName substringToIndex:1];
+        return [[fullName substringToIndex:1] uppercaseString];
     }
     
     return @"";

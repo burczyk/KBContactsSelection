@@ -103,10 +103,14 @@
 }
 
 - (IBAction)buttonSelectPushed:(id)sender {
-    if (_configuration.mode & KBContactsSelectionModeMessages) {
-        [self showMessagesViewControllerWithSelectedContacts];
+    if (self.customSelectionHandler) {
+        self.customSelectionHandler([_kBContactsTableViewDataSource selectedContacts]);
     } else {
-        [self showEmailViewControllerWithSelectedContacts];
+        if (_configuration.mode & KBContactsSelectionModeMessages) {
+            [self showMessagesViewControllerWithSelectedContacts];
+        } else {
+            [self showEmailViewControllerWithSelectedContacts];
+        }
     }
 }
 

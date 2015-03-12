@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "KBContactsSelectionConfiguration.h"
 
+typedef void(^KBContactSelectionHandler)(NSArray * selectedContacts);
+
 @interface KBContactsSelectionViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -18,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UINavigationItem *titleItem;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarSearchContacts;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarSearchContactsHeight;
+
+@property (strong) KBContactSelectionHandler customSelectionHandler;
 
 + (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock;
 

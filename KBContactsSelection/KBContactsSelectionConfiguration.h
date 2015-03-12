@@ -24,7 +24,8 @@ typedef NS_ENUM(NSInteger, KBContactsSelectionMode) {
 
 @property (nonatomic, assign) enum KBContactsSelectionMode mode;
 @property (nonatomic, assign) BOOL skipUnnamedContacts;
-@property (strong) KBContactSelectionHandler customSelectionHandler;
+@property (strong) KBContactSelectionHandler customSelectButtonHandler;
+@property (strong) KBContactSelectionHandler selectionChangedHandler;
 
 + (KBContactsSelectionConfiguration*)defaultConfiguration;
 

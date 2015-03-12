@@ -17,15 +17,18 @@
 
 - (IBAction)push:(UIButton *)sender {
     
-    KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
+    __block KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
         configuration.shouldShowNavigationBar = NO;
         configuration.tintColor = [UIColor colorWithRed:11.0/255 green:211.0/255 blue:24.0/255 alpha:1];
         configuration.title = @"Push";
         
         configuration.mode = KBContactsSelectionModeMessages | KBContactsSelectionModeEmail;
         configuration.skipUnnamedContacts = YES;
-        configuration.customSelectionHandler = ^(NSArray * contacts) {
+        configuration.customSelectButtonHandler = ^(NSArray * contacts) {
             NSLog(@"%@", contacts);
+        };
+        configuration.selectionChangedHandler = ^(NSArray * contacts) {
+            vc.title = [NSString stringWithFormat:@"%lu contacts", (unsigned long)contacts.count];
         };
     }];
 
@@ -34,12 +37,15 @@
 
 - (IBAction)present:(UIButton *)sender {
     
-    KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
+    __block KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
         configuration.tintColor = [UIColor orangeColor];
         configuration.mode = KBContactsSelectionModeEmail;
         configuration.title = @"Present";
-        configuration.customSelectionHandler = ^(NSArray * contacts) {
+        configuration.customSelectButtonHandler = ^(NSArray * contacts) {
             NSLog(@"%@", contacts);
+        };
+        configuration.selectionChangedHandler = ^(NSArray * contacts) {
+            vc.title = [NSString stringWithFormat:@"%lu contacts", (unsigned long)contacts.count];
         };
     }];
 

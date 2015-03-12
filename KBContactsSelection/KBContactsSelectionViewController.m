@@ -58,21 +58,21 @@
         
         UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Select", nil) style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
         [self.navigationItem setRightBarButtonItem:bi animated:YES];
-        
-        self.title = NSLocalizedString(@"Search contacts", nil);
     }
-    if (_configuration.title) {
-        [self setTitle:_configuration.title];
-    }
+    [self setTitle:_configuration.title];
 }
 
 - (void)setTitle:(NSString *)title
 {
-    [super setTitle:title];
-    _configuration.title = title;
-    if (!_configuration.shouldShowNavigationBar) {
-        self.title = title;
+    if (!title) {
+        title = NSLocalizedString(@"Search contacts", nil);
+        _configuration.title = nil;
     } else {
+        _configuration.title = title;
+    }
+    
+    [super setTitle:title];
+    if (_configuration.shouldShowNavigationBar) {
         self.titleItem.title = title;
     }
 }
@@ -109,8 +109,8 @@
 }
 
 - (IBAction)buttonSelectPushed:(id)sender {
-    if (_configuration.customSelectionHandler) {
-        _configuration.customSelectionHandler([_kBContactsTableViewDataSource selectedContacts]);
+    if (_configuration.customSelectButtonHandler) {
+        _configuration.customSelectButtonHandler([_kBContactsTableViewDataSource selectedContacts]);
     } else {
         if (_configuration.mode & KBContactsSelectionModeMessages) {
             [self showMessagesViewControllerWithSelectedContacts];

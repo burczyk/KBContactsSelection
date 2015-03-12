@@ -62,6 +62,10 @@ static NSString *cellIdentifier = @"KBContactCell";
     ab.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]];
     
     ab.filterBlock = ^BOOL(APContact *contact){
+        if (_configuration.skipUnnamedContacts && contact.fullName.length < 1) {
+            return NO;
+        }
+        
         if (_configuration.mode & KBContactsSelectionModeMessages) {
             if (contact.phonesWithLabels.count > 0) {
                 return YES;

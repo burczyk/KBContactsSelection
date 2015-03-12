@@ -18,10 +18,12 @@
 - (IBAction)push:(UIButton *)sender {
     
     KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
-        configuration.mode = KBContactsSelectionModeMessages | KBContactsSelectionModeEmail;
         configuration.shouldShowNavigationBar = NO;
         configuration.tintColor = [UIColor colorWithRed:11.0/255 green:211.0/255 blue:24.0/255 alpha:1];
         configuration.title = @"Push";
+        
+        configuration.mode = KBContactsSelectionModeMessages | KBContactsSelectionModeEmail;
+        configuration.skipUnnamedContacts = YES;
         configuration.customSelectionHandler = ^(NSArray * contacts) {
             NSLog(@"%@", contacts);
         };

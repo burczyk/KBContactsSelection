@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef void(^KBContactSelectionHandler)(NSArray * selectedContacts);
+
 typedef NS_ENUM(NSInteger, KBContactsSelectionMode) {
     KBContactsSelectionModeMessages     = 1 << 0,
     KBContactsSelectionModeEmail        = 1 << 1
@@ -21,6 +23,7 @@ typedef NS_ENUM(NSInteger, KBContactsSelectionMode) {
 @property (nonatomic, assign) BOOL shouldShowNavigationBar;
 @property (nonatomic, strong) NSString * title;
 
+@property (strong) KBContactSelectionHandler customSelectionHandler;
 + (KBContactsSelectionConfiguration*)defaultConfiguration;
 
 @end

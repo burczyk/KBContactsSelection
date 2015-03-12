@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, KBContactsSelectionMode) {
 @property (nonatomic, strong) UIColor *tintColor;
 @property (nonatomic, assign) enum KBContactsSelectionMode mode;
 @property (nonatomic, assign) BOOL shouldShowNavigationBar;
+@property (nonatomic, strong) NSString * title;
 
 + (KBContactsSelectionConfiguration*)defaultConfiguration;
 

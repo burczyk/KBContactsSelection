@@ -59,7 +59,15 @@
         UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Select", nil) style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
         [self.navigationItem setRightBarButtonItem:bi animated:YES];
         
-        self.title = NSLocalizedString(@"Search contacts", nil);
+        if (_configuration.title) {
+            self.title = _configuration.title;
+        } else {
+            self.title = NSLocalizedString(@"Search contacts", nil);
+        }
+    } else {
+        if (_configuration.title) {
+            self.titleItem.title = _configuration.title;
+        }
     }
 }
 

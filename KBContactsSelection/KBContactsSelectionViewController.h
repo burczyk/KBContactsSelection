@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonItemCancel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonItemSelect;
+@property (weak, nonatomic) IBOutlet UINavigationItem *titleItem;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarSearchContacts;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarSearchContactsHeight;
 

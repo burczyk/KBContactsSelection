@@ -21,6 +21,7 @@
         configuration.mode = KBContactsSelectionModeMessages | KBContactsSelectionModeEmail;
         configuration.shouldShowNavigationBar = NO;
         configuration.tintColor = [UIColor colorWithRed:11.0/255 green:211.0/255 blue:24.0/255 alpha:1];
+        configuration.title = @"Push";
     }];
 
     [self.navigationController pushViewController:vc animated:YES];
@@ -31,6 +32,7 @@
     KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
         configuration.tintColor = [UIColor orangeColor];
         configuration.mode = KBContactsSelectionModeEmail;
+        configuration.title = @"Present";
     }];
 
     [self presentViewController:vc animated:YES completion:nil];

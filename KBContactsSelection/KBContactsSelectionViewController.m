@@ -58,6 +58,7 @@
         
         UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Select", nil) style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
         [self.navigationItem setRightBarButtonItem:bi animated:YES];
+        self.buttonItemSelect = bi;
     }
     [self setTitle:_configuration.title];
 }

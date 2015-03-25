@@ -10,7 +10,18 @@
 #import <UIKit/UIKit.h>
 #import "KBContactsSelectionConfiguration.h"
 
+#import "APAddressBook.h"
+
+@protocol KBContactsTableViewDataSourceDelegate <NSObject>
+@optional
+- (void) didSelectContact:(APContact *)contact;
+- (void) didRemoveContact:(APContact *)contact;
+@end
+
+
 @interface KBContactsTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, weak) id <KBContactsTableViewDataSourceDelegate> delegate;
 
 - (instancetype)initWithTableView:(UITableView*)tableView configuration:(KBContactsSelectionConfiguration*)configuration;
 

@@ -8,7 +8,6 @@
 
 #import "KBContactsTableViewDataSource.h"
 #import "KBContactCell.h"
-#import "APAddressBook.h"
 #import "APContact+FullName.h"
 #import "APPhoneWithLabel.h"
 
@@ -279,8 +278,14 @@ static NSString *cellIdentifier = @"KBContactCell";
         BOOL selected = [_selectedContactsRecordIds containsObject:contact.recordID];
         if (selected) {
             [_selectedContactsRecordIds removeObject:contact.recordID];
+            if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
+                [_delegate didRemoveContact:contact];
+            }
         } else {
             [_selectedContactsRecordIds addObject:contact.recordID];
+            if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
+                [_delegate didSelectContact:contact];
+            }
         }
     }
     

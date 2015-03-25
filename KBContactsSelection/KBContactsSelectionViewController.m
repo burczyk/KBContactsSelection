@@ -11,7 +11,7 @@
 
 
 
-@interface KBContactsSelectionViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, KBContactsTableViewDataSourceDelegate>
+@interface KBContactsSelectionViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, KBContactsTableViewDataSourceDelegate>
 
 @property (nonatomic, strong) KBContactsTableViewDataSource *kBContactsTableViewDataSource;
 @property (nonatomic, strong) KBContactsSelectionConfiguration *configuration;
@@ -108,7 +108,7 @@
 {
     if ([MFMessageComposeViewController canSendText]) {
         MFMessageComposeViewController *messageComposeVC = [[MFMessageComposeViewController alloc] init];
-        messageComposeVC.delegate = self;
+        messageComposeVC.messageComposeDelegate = self;
         messageComposeVC.recipients = [_kBContactsTableViewDataSource phonesOfSelectedContacts];
         [self presentViewController:messageComposeVC animated:YES completion:nil];
     } else {

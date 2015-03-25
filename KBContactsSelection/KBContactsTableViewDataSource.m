@@ -17,7 +17,6 @@
 @property (nonatomic, strong) KBContactsSelectionConfiguration *configuration;
 
 @property (nonatomic, strong) NSArray *unmodifiedContacts;
-@property (nonatomic, strong) NSArray *contacts;
 @property (nonatomic, strong) NSMutableArray *selectedContactsRecordIds;
 @property (nonatomic, strong) NSMutableArray *selectedRows;
 @property (nonatomic, strong) NSArray *sectionIndexTitles;
@@ -170,6 +169,22 @@ static NSString *cellIdentifier = @"KBContactCell";
         _contacts = filteredContacts;
     }
     [self updateAfterModifyingContacts];
+}
+
+- (void)selectAll
+{
+    [_selectedContactsRecordIds removeAllObjects];
+    for (int section = 0; section < [self.tableView numberOfSections]; section++) {
+        for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; row++) {
+            NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
+            [self tableView:self.tableView didSelectRowAtIndexPath:cellPath];
+        }
+    }
+}
+
+- (void)removeAll {
+    
+    [_selectedContactsRecordIds removeAllObjects];
 }
 
 - (NSArray*)selectedContacts

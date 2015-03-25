@@ -22,11 +22,13 @@
 @interface KBContactsTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) id <KBContactsTableViewDataSourceDelegate> delegate;
+@property (nonatomic, strong) NSArray *contacts;
 
 - (instancetype)initWithTableView:(UITableView*)tableView configuration:(KBContactsSelectionConfiguration*)configuration;
 
 - (void)runSearch:(NSString*)text;
-
+- (void)selectAll;
+- (void)removeAll;
 - (NSArray*)selectedContacts;
 - (NSArray*)phonesOfSelectedContacts;
 - (NSArray*)emailsOfSelectedContacts;

@@ -8,7 +8,6 @@
 
 #import "KBContactsTableViewDataSource.h"
 #import "KBContactCell.h"
-#import "APAddressBook.h"
 #import "APContact+FullName.h"
 #import "APPhoneWithLabel.h"
 
@@ -18,7 +17,6 @@
 @property (nonatomic, strong) KBContactsSelectionConfiguration *configuration;
 
 @property (nonatomic, strong) NSArray *unmodifiedContacts;
-@property (nonatomic, strong) NSArray *contacts;
 @property (nonatomic, strong) NSMutableArray *selectedContactsRecordIds;
 @property (nonatomic, strong) NSMutableArray *selectedRows;
 @property (nonatomic, strong) NSArray *sectionIndexTitles;
@@ -173,6 +171,22 @@ static NSString *cellIdentifier = @"KBContactCell";
     [self updateAfterModifyingContacts];
 }
 
+- (void)selectAll
+{
+    [_selectedContactsRecordIds removeAllObjects];
+    for (int section = 0; section < [self.tableView numberOfSections]; section++) {
+        for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; row++) {
+            NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
+            [self tableView:self.tableView didSelectRowAtIndexPath:cellPath];
+        }
+    }
+}
+
+- (void)removeAll {
+    
+    [_selectedContactsRecordIds removeAllObjects];
+}
+
 - (NSArray*)selectedContacts
 {
     NSMutableArray *result = [NSMutableArray array];
@@ -279,8 +293,14 @@ static NSString *cellIdentifier = @"KBContactCell";
         BOOL selected = [_selectedContactsRecordIds containsObject:contact.recordID];
         if (selected) {
             [_selectedContactsRecordIds removeObject:contact.recordID];
+            if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
+                [_delegate didRemoveContact:contact];
+            }
         } else {
             [_selectedContactsRecordIds addObject:contact.recordID];
+            if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
+                [_delegate didSelectContact:contact];
+            }
         }
     }
     

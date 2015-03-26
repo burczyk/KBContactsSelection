@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "KBContactsSelectionViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <KBContactsSelectionViewControllerDelegate>
 
 @end
 
@@ -22,7 +22,7 @@
         configuration.shouldShowNavigationBar = NO;
         configuration.tintColor = [UIColor colorWithRed:11.0/255 green:211.0/255 blue:24.0/255 alpha:1];
     }];
-
+    [vc setDelegate:self];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -32,8 +32,17 @@
         configuration.tintColor = [UIColor orangeColor];
         configuration.mode = KBContactsSelectionModeEmail;
     }];
-
+    [vc setDelegate:self];
     [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark - KBContactsSelectionViewControllerDelegate
+- (void) didSelectContact:(APContact *)contact {
+    NSLog(@"Selected contact: %@", [contact fullName]);
+}
+
+- (void) didRemoveContact:(APContact *)contact {
+    NSLog(@"Removed contact: %@", [contact fullName]);
 }
 
 @end

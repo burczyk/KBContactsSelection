@@ -126,6 +126,16 @@ When `Select` button is pushed initial contacts array is filtered using all `rec
 ###KBContactsSelectionConfiguration
 Was described in **Configuration** section.
 
+###KBContactsSelectionViewControllerDelegate
+Cotains two methods:
+
+```objective-c
+- (void) didSelectContact:(APContact *)contact;
+- (void) didRemoveContact:(APContact *)contact;
+```
+
+that can be used to observe contacts modification. Thanks to @benaneesh.
+
 ##Localized strings
 Library contains `NSLocalizedString` macro in proper places so you can generate `Localizable.strings` file with following literals:
 

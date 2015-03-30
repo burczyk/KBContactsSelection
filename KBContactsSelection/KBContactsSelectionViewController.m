@@ -15,7 +15,8 @@
 
 @property (nonatomic, strong) KBContactsTableViewDataSource *kBContactsTableViewDataSource;
 @property (nonatomic, strong) KBContactsSelectionConfiguration *configuration;
-
+@property IBOutlet UIView * additionalInfoContainer;
+@property IBOutlet NSLayoutConstraint * additionalInfoViewHeightConstraint;
 @end
 
 @implementation KBContactsSelectionViewController
@@ -41,6 +42,41 @@
     [self prepareContactsDataSource];
     [self prepareNavigationBar];
     [self customizeColors];
+    
+    [self _showAdditionalInfoViewAnimated:NO];
+}
+
+- (void)setAdditionalInfoView:(UIView *)additionalInfoView
+{
+    if (additionalInfoView != _additionalInfoView) {
+        [_additionalInfoView removeFromSuperview];
+    }
+    _additionalInfoView = additionalInfoView;
+    [self _showAdditionalInfoViewAnimated:YES];
+}
+
+- (void)_showAdditionalInfoViewAnimated:(BOOL)animated
+{
+    if (self.additionalInfoView) {
+        CGRect r = self.additionalInfoContainer.bounds;
+        r.size.height = self.additionalInfoView.frame.size.height;
+        
+        self.additionalInfoView.frame = r;
+        self.additionalInfoView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.additionalInfoContainer addSubview:self.additionalInfoView];
+        
+        self.additionalInfoViewHeightConstraint.constant = r.size.height;
+    } else {
+        self.additionalInfoViewHeightConstraint.constant = 0;
+    }
+    
+    if (animated) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutSubviews];
+        }];
+    } else {
+        [self.view layoutSubviews];
+    }
 }
 
 - (void)prepareContactsDataSource

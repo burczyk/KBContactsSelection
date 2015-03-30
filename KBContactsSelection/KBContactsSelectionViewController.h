@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarSearchContacts;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarSearchContactsHeight;
 
+@property (strong, nonatomic) UIView * additionalInfoView;
+
 + (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock;
 
 @end

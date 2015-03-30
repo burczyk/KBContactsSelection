@@ -12,7 +12,8 @@
 #import <APAddressBook/APPhoneWithLabel.h>
 
 @interface ViewController () <KBContactsSelectionViewControllerDelegate>
-
+@property UILabel * additionalInfoLabel;
+@property (weak) KBContactsSelectionViewController* presentedCSVC;
 @end
 
 @implementation ViewController
@@ -45,6 +46,7 @@
     }];
     [vc setDelegate:self];
     [self.navigationController pushViewController:vc animated:YES];
+    self.presentedCSVC = vc;
 }
 
 - (IBAction)present:(UIButton *)sender {
@@ -60,17 +62,44 @@
             vc.title = [NSString stringWithFormat:@"%lu contacts", (unsigned long)contacts.count];
         };
     }];
+    
+    
     [vc setDelegate:self];
     [self presentViewController:vc animated:YES completion:nil];
+    self.presentedCSVC = vc;
 }
 
 #pragma mark - KBContactsSelectionViewControllerDelegate
 - (void) didSelectContact:(APContact *)contact {
-    NSLog(@"Selected contact: %@", [contact fullName]);
+    
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.text = [NSString stringWithFormat:@"Selected contact: %@", [contact fullName]];
+    [label sizeToFit];
+    
+    self.additionalInfoLabel = label;
+    self.presentedCSVC.additionalInfoView = self.additionalInfoLabel;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.presentedCSVC.additionalInfoView == label) {
+            self.presentedCSVC.additionalInfoView = nil;
+        }
+    });
 }
 
 - (void) didRemoveContact:(APContact *)contact {
-    NSLog(@"Removed contact: %@", [contact fullName]);
+    
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.text = [NSString stringWithFormat:@"Removed contact: %@", [contact fullName]];
+    [label sizeToFit];
+    
+    self.additionalInfoLabel = label;
+    self.presentedCSVC.additionalInfoView = self.additionalInfoLabel;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.presentedCSVC.additionalInfoView == label) {
+            self.presentedCSVC.additionalInfoView = nil;
+        }
+    });
 }
 
 @end

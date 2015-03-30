@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "KBContactsSelectionConfiguration.h"
+#import "KBContactsTableViewDataSource.h"
+#import "APContact+FullName.h"
+
+
+@protocol KBContactsSelectionViewControllerDelegate <NSObject>
+@optional
+- (void) didSelectContact:(APContact *)contact;
+- (void) didRemoveContact:(APContact *)contact;
+@end
 
 @interface KBContactsSelectionViewController : UIViewController
-
+@property (nonatomic, weak) id <KBContactsSelectionViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonItemCancel;

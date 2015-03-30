@@ -11,7 +11,7 @@
 #import <APAddressBook/APContact.h>
 #import <APAddressBook/APPhoneWithLabel.h>
 
-@interface ViewController ()
+@interface ViewController () <KBContactsSelectionViewControllerDelegate>
 
 @end
 
@@ -43,7 +43,7 @@
             return YES;
         };
     }];
-
+    [vc setDelegate:self];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -60,8 +60,17 @@
             vc.title = [NSString stringWithFormat:@"%lu contacts", (unsigned long)contacts.count];
         };
     }];
-
+    [vc setDelegate:self];
     [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark - KBContactsSelectionViewControllerDelegate
+- (void) didSelectContact:(APContact *)contact {
+    NSLog(@"Selected contact: %@", [contact fullName]);
+}
+
+- (void) didRemoveContact:(APContact *)contact {
+    NSLog(@"Removed contact: %@", [contact fullName]);
 }
 
 @end

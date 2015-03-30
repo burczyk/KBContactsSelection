@@ -8,9 +8,10 @@
 
 #import <MessageUI/MessageUI.h>
 #import "KBContactsSelectionViewController.h"
-#import "KBContactsTableViewDataSource.h"
 
-@interface KBContactsSelectionViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
+
+
+@interface KBContactsSelectionViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, KBContactsTableViewDataSourceDelegate>
 
 @property (nonatomic, strong) KBContactsTableViewDataSource *kBContactsTableViewDataSource;
 @property (nonatomic, strong) KBContactsSelectionConfiguration *configuration;
@@ -45,6 +46,7 @@
 - (void)prepareContactsDataSource
 {
     _kBContactsTableViewDataSource = [[KBContactsTableViewDataSource alloc] initWithTableView:_tableView configuration:_configuration];
+    _kBContactsTableViewDataSource.delegate = self;
     _tableView.dataSource = _kBContactsTableViewDataSource;
     _tableView.delegate = _kBContactsTableViewDataSource;
 }
@@ -125,7 +127,7 @@
 {
     if ([MFMessageComposeViewController canSendText]) {
         MFMessageComposeViewController *messageComposeVC = [[MFMessageComposeViewController alloc] init];
-        messageComposeVC.delegate = self;
+        messageComposeVC.messageComposeDelegate = self;
         messageComposeVC.recipients = [_kBContactsTableViewDataSource phonesOfSelectedContacts];
         [self presentViewController:messageComposeVC animated:YES completion:nil];
     } else {
@@ -160,6 +162,22 @@
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - KBContactsTableViewDataSourceDelegate
+
+- (void) didSelectContact:(APContact *)contact
+{
+    if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
+        [_delegate didSelectContact:contact];
+    }
+}
+
+- (void) didRemoveContact:(APContact *)contact
+{
+    if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
+        [_delegate didRemoveContact:contact];
+    }
 }
 
 @end

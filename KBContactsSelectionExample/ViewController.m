@@ -24,6 +24,7 @@
         configuration.shouldShowNavigationBar = NO;
         configuration.tintColor = [UIColor colorWithRed:11.0/255 green:211.0/255 blue:24.0/255 alpha:1];
         configuration.title = @"Push";
+        configuration.selectButtonTitle = @"+";
         
         configuration.mode = KBContactsSelectionModeMessages | KBContactsSelectionModeEmail;
         configuration.skipUnnamedContacts = YES;
@@ -52,6 +53,7 @@
         configuration.tintColor = [UIColor orangeColor];
         configuration.mode = KBContactsSelectionModeEmail;
         configuration.title = @"Present";
+        configuration.selectButtonTitle = @"Invite";
         configuration.customSelectButtonHandler = ^(NSArray * contacts) {
             NSLog(@"%@", contacts);
         };

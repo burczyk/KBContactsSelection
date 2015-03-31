@@ -91,15 +91,18 @@
 
 - (void)prepareNavigationBar
 {
+    NSString * selectTitle = (_configuration.selectButtonTitle?:NSLocalizedString(@"Select", nil));
     if (!_configuration.shouldShowNavigationBar) {
         _navigationBarSearchContactsHeight.constant = 0;
         _navigationBarSearchContacts.hidden = YES;
         self.edgesForExtendedLayout = UIRectEdgeNone;
         
-        UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Select", nil) style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
+        UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:selectTitle style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
         [self.navigationItem setRightBarButtonItem:bi animated:YES];
         self.buttonItemSelect = bi;
         self.buttonItemSelect.enabled = NO;
+    } else {
+        self.buttonItemSelect.title = selectTitle;
     }
     [self setTitle:_configuration.title];
 }

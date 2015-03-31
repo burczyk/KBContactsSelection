@@ -205,7 +205,7 @@
 
 #pragma mark - KBContactsTableViewDataSourceDelegate
 
-- (void) didSelectContact:(APContact *)contact
+- (void)dataSource:(KBContactsTableViewDataSource*)datasource didSelectContact:(APContact *)contact
 {
     self.selectedContacts = _kBContactsTableViewDataSource.selectedContacts;
     if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
@@ -214,7 +214,7 @@
     self.buttonItemSelect.enabled = self.selectedContacts.count > 0;
 }
 
-- (void) didRemoveContact:(APContact *)contact
+- (void)dataSource:(KBContactsTableViewDataSource*)datasource didRemoveContact:(APContact *)contact
 {
     self.selectedContacts = _kBContactsTableViewDataSource.selectedContacts;
     if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {

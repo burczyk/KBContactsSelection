@@ -30,9 +30,6 @@
         configuration.customSelectButtonHandler = ^(NSArray * contacts) {
             NSLog(@"%@", contacts);
         };
-        configuration.selectionChangedHandler = ^(NSArray * contacts) {
-            vc.title = [NSString stringWithFormat:@"%lu contacts", (unsigned long)contacts.count];
-        };
         configuration.contactEnabledValidation = ^(id contact) {
             APContact * _c = contact;
             if ([_c phonesWithLabels].count > 0) {
@@ -58,9 +55,6 @@
         configuration.customSelectButtonHandler = ^(NSArray * contacts) {
             NSLog(@"%@", contacts);
         };
-        configuration.selectionChangedHandler = ^(NSArray * contacts) {
-            vc.title = [NSString stringWithFormat:@"%lu contacts", (unsigned long)contacts.count];
-        };
     }];
     
     
@@ -84,6 +78,7 @@
             self.presentedCSVC.additionalInfoView = nil;
         }
     });
+    NSLog(@"%@", self.presentedCSVC.selectedContacts);
 }
 
 - (void) didRemoveContact:(APContact *)contact {
@@ -100,6 +95,8 @@
             self.presentedCSVC.additionalInfoView = nil;
         }
     });
+    
+    NSLog(@"%@", self.presentedCSVC.selectedContacts);
 }
 
 @end

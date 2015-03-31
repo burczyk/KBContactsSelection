@@ -340,11 +340,7 @@ static NSString *cellIdentifier = @"KBContactCell";
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (self.configuration.selectionChangedHandler) {
-        self.configuration.selectionChangedHandler(self.selectedContacts);
     }
-}
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -13,6 +13,8 @@
 
 @interface KBContactsSelectionViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, KBContactsTableViewDataSourceDelegate>
 
+@property (strong) NSArray * selectedContacts;
+
 @property (nonatomic, strong) KBContactsTableViewDataSource *kBContactsTableViewDataSource;
 @property (nonatomic, strong) KBContactsSelectionConfiguration *configuration;
 @property IBOutlet UIView * additionalInfoContainer;
@@ -97,6 +99,7 @@
         UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Select", nil) style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
         [self.navigationItem setRightBarButtonItem:bi animated:YES];
         self.buttonItemSelect = bi;
+        self.buttonItemSelect.enabled = NO;
     }
     [self setTitle:_configuration.title];
 }
@@ -204,16 +207,22 @@
 
 - (void) didSelectContact:(APContact *)contact
 {
+    self.selectedContacts = _kBContactsTableViewDataSource.selectedContacts;
     if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
         [_delegate didSelectContact:contact];
     }
+    self.buttonItemSelect.enabled = self.selectedContacts.count > 0;
 }
 
 - (void) didRemoveContact:(APContact *)contact
 {
+    self.selectedContacts = _kBContactsTableViewDataSource.selectedContacts;
     if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
         [_delegate didRemoveContact:contact];
     }
+    self.buttonItemSelect.enabled = self.selectedContacts.count > 0;
 }
+
+
 
 @end

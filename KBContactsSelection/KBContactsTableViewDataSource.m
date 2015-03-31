@@ -328,13 +328,13 @@ static NSString *cellIdentifier = @"KBContactCell";
         BOOL selected = [_selectedContactsRecordIds containsObject:contact.recordID];
         if (selected) {
             [_selectedContactsRecordIds removeObject:contact.recordID];
-            if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
-                [_delegate didRemoveContact:contact];
+            if ([_delegate respondsToSelector:@selector(dataSource:didRemoveContact:)]) {
+                [_delegate dataSource:self didRemoveContact:contact];
             }
         } else {
             [_selectedContactsRecordIds addObject:contact.recordID];
-            if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
-                [_delegate didSelectContact:contact];
+            if ([_delegate respondsToSelector:@selector(dataSource:didSelectContact:)]) {
+                [_delegate dataSource:self didSelectContact:contact];
             }
         }
     }

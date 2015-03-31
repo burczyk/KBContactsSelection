@@ -54,7 +54,7 @@
                         <constraint firstAttribute="height" constant="60" id="Yn3-Dg-ud5"/>
                     </constraints>
                 </view>
-                <searchBar contentMode="redraw" placeholder="Type contact name" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byb-Dh-My7">
+                <searchBar contentMode="redraw" placeholder="Type contact name" translatesAutoresizingMaskIntoConstraints="NO" id="Byb-Dh-My7">
                     <rect key="frame" x="0.0" y="124" width="600" height="44"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>

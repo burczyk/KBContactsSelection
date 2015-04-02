@@ -103,14 +103,6 @@ KBContactsSelectionViewController *vc = [KBContactsSelectionViewController conta
     configuration.mode = KBContactsSelectionModeEmail;
 }];
 
-###Presenting KBContactsSelectionViewController with emails
-
-```objective-c
-KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
-    configuration.tintColor = [UIColor orangeColor];
-    configuration.mode = KBContactsSelectionModeEmail;
-}];
-
 [self presentViewController:vc animated:YES completion:nil];
 ```
 

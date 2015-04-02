@@ -12,7 +12,6 @@
 #import <APAddressBook/APPhoneWithLabel.h>
 
 @interface ViewController () <KBContactsSelectionViewControllerDelegate>
-@property UILabel * additionalInfoLabel;
 @property (weak) KBContactsSelectionViewController* presentedCSVC;
 @end
 
@@ -45,6 +44,12 @@
     [vc setDelegate:self];
     [self.navigationController pushViewController:vc animated:YES];
     self.presentedCSVC = vc;
+    
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 24)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"Select people you want to text";
+
+    vc.additionalInfoView = label;
 }
 
 - (IBAction)present:(UIButton *)sender {
@@ -63,41 +68,33 @@
     [vc setDelegate:self];
     [self presentViewController:vc animated:YES completion:nil];
     self.presentedCSVC = vc;
+    
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 24)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"Select people you want to email";
+    
+    vc.additionalInfoView = label;
 }
 
 #pragma mark - KBContactsSelectionViewControllerDelegate
 - (void) didSelectContact:(APContact *)contact {
     
-    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 36)];
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = [NSString stringWithFormat:@"Selected contact: %@", [contact fullName]];
-    [label sizeToFit];
+    label.text = [NSString stringWithFormat:@"%@ Selected", @(self.presentedCSVC.selectedContacts.count)];
     
-    self.additionalInfoLabel = label;
-    self.presentedCSVC.additionalInfoView = self.additionalInfoLabel;
+    self.presentedCSVC.additionalInfoView = label;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.presentedCSVC.additionalInfoView == label) {
-            self.presentedCSVC.additionalInfoView = nil;
-        }
-    });
     NSLog(@"%@", self.presentedCSVC.selectedContacts);
 }
 
 - (void) didRemoveContact:(APContact *)contact {
     
-    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.text = [NSString stringWithFormat:@"Removed contact: %@", [contact fullName]];
-    [label sizeToFit];
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 36)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = [NSString stringWithFormat:@"%@ Selected", @(self.presentedCSVC.selectedContacts.count)];
     
-    self.additionalInfoLabel = label;
-    self.presentedCSVC.additionalInfoView = self.additionalInfoLabel;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.presentedCSVC.additionalInfoView == label) {
-            self.presentedCSVC.additionalInfoView = nil;
-        }
-    });
+    self.presentedCSVC.additionalInfoView = label;
     
     NSLog(@"%@", self.presentedCSVC.selectedContacts);
 }

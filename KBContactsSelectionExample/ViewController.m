@@ -69,6 +69,7 @@
 - (void) didSelectContact:(APContact *)contact {
     
     __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.textAlignment = NSTextAlignmentCenter;
     label.text = [NSString stringWithFormat:@"Selected contact: %@", [contact fullName]];
     [label sizeToFit];
     

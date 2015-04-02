@@ -41,19 +41,46 @@ It uses objective-c [Builder Pattern](http://en.wikipedia.org/wiki/Builder_patte
 
 `KBContactsSelectionViewController` is fullscreen view controller and it can be either pushed on navigation stack or presented.
 
-`KBContactsSelectionConfiguration` class is responsinble for setting basic properties:
+`KBContactsSelectionConfiguration` class is responsinble for setting both basic and advanced properties:
+
+**Look & Feel**
 
 ```objective-c
 UIColor *tintColor;
-enum KBContactsSelectionMode mode;
 BOOL shouldShowNavigationBar;
+NSString * title;
+```
+
+**Contacts' behavior**
+
+```objective-c
+enum KBContactsSelectionMode mode;
+BOOL skipUnnamedContacts;
+KBContactValidation contactEnabledValidation;
+```
+
+**Customizable Action**
+
+```objective-c
+NSString * selectButtonTitle;
+KBContactSelectionHandler customSelectButtonHandler;
 ```
 
 **tintColor** is responsible for setting navigation bar `tintColor`, table view `sectionIndexColor` and search bar `tintColor`.
 
-**mode** can be set to one of two enum values: `KBContactsSelectionModeMessages` or `KBContactsSelectionModeEmail`. They have impact on data displayed (emails or phone numbers) and final navigation (Messages or Mail app) for selected contacts.
-
 **shouldShowNavigationBar** hides navigation bar from `KBContactsSelectionViewController` and should set when you push this view controller instead of presenting it.
+
+**title** can be set before displaying the controller. It will set the `title` of the `navigationBar`.
+
+**mode** can be set to mask either one or two values: `KBContactsSelectionModeMessages` and/or `KBContactsSelectionModeEmail`. They have impact on data displayed (emails or phone numbers) and final navigation (Messages or Mail app) for selected contacts. In order to display contacts with either an email or phone numbers (or both), you can set this variable to the combined mask `KBContactsSelectionModeMessages | KBContactsSelectionModeEmail` 
+
+**skipUnnamedContacts** automatically will filter out all contacts without a First or Last name set.
+
+**contactEnabledValidation** can be used to manually enable/disable contacts in the list, using a custom block ```BOOL(^KBContactValidation)(APContact * contact)```. When defined, this block will be called for each contact.
+
+**selectButtonTitle** let's you customize the `text` of the Select button. Using default `nil` will display a localized version of Select.
+
+**customSelectButtonHandler** allows to call a custom action (block) on the selected contacts when the users taps the Select button. By default, when this value is `nil`, an email composer will be prompted or a SMS message composer will be presented (depending on selected `mode`). If `customSelectButtonHandler` is defined (`void(^KBContactSelectionHandler)(NSArray * selectedContacts)`), it will be invoked with an `NSArray` of `APContact` objects. 
 
 ##Usage
 ###Pushing KBContactsSelectionViewController with phone numbers
@@ -74,6 +101,31 @@ KBContactsSelectionViewController *vc = [KBContactsSelectionViewController conta
 KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
     configuration.tintColor = [UIColor orangeColor];
     configuration.mode = KBContactsSelectionModeEmail;
+}];
+
+###Presenting KBContactsSelectionViewController with emails
+
+```objective-c
+KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
+    configuration.tintColor = [UIColor orangeColor];
+    configuration.mode = KBContactsSelectionModeEmail;
+}];
+
+[self presentViewController:vc animated:YES completion:nil];
+```
+
+###Enabling specific contacts and customizing select action
+
+This example will enable those rows corresponding to contacts with photos.
+
+```objective-c
+KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
+    configuration.tintColor = [UIColor orangeColor];
+    configuration.mode = KBContactsSelectionModeEmail;
+    configuration.skipUnnamedContacts = YES;
+    configuration.contactEnabledValidation = ^(APContact * contact) {
+    	return contact.photo != nil;
+    };
 }];
 
 [self presentViewController:vc animated:YES completion:nil];
@@ -109,6 +161,33 @@ Is a main component of whole library and probably the only one you should explic
 ```
 
 It is responsible for most of user interactions: buttons, presenting final view controllers, search. 
+
+**Additional Info View**
+
+In cases when you need to add a prompt or selection summary, `additionalInfoView` property allows to dynamically add such a view:
+
+```objective-c
+@property (strong, nonatomic) UIView * additionalInfoView;
+```
+The `additionalInfoView`` will be included between the navigation bar and the search bar. It will persist even during search, allowing you to present relevant information to the user. Additional info views can be set prior or after presenting the view controller. This is shown in the attached example project.
+
+This view will be stretched horizontally to fill the width of the table view. Vertically, the view controller will consider the additional view's height and push down the search bar in order to fit it correctly. If `additionalInfoView` is set after the view controller is presented, the search bar will be pushed down with an animation. 
+
+The following example displays a label providing context or instructions to the user:
+
+```objective-c
+KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
+		configuration.title = @"New Project";
+		...
+    };
+}];
+
+UILabel * instructionsLabel = [[UILabel alloc] init];
+instructionsLabel.text = @"Add new participants to the new project"; 
+vc.additionalInfoView = instructionsLabel;
+```
+
+**Data Source**
 
 Despite the fact that `KBContactsSelectionViewController` contains table view it doesn't act as its data source or delegate. It passes all responsibilities regarding table view to `KBContactsTableViewDataSource` component.
 

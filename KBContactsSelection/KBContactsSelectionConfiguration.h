@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class APContact;
+
 typedef void(^KBContactSelectionHandler)(NSArray * selectedContacts);
-typedef BOOL(^KBContactValidation)(id contact);
+typedef BOOL(^KBContactValidation)(APContact * contact);
 
 typedef NS_ENUM(NSInteger, KBContactsSelectionMode) {
     KBContactsSelectionModeMessages     = 1 << 0,
@@ -19,16 +21,19 @@ typedef NS_ENUM(NSInteger, KBContactsSelectionMode) {
 
 @interface KBContactsSelectionConfiguration : NSObject
 
+/* Look & Feel */
 @property (nonatomic, strong) UIColor *tintColor;
 @property (nonatomic, assign) BOOL shouldShowNavigationBar;
 @property (nonatomic, strong) NSString * title;
 
+/* Contacts behavior */
 @property (nonatomic, assign) enum KBContactsSelectionMode mode;
 @property (nonatomic, assign) BOOL skipUnnamedContacts;
+@property (strong) KBContactValidation contactEnabledValidation;
 
+/* Action */
 @property (strong) NSString * selectButtonTitle;
 @property (strong) KBContactSelectionHandler customSelectButtonHandler;
-@property (strong) KBContactValidation contactEnabledValidation;
 
 + (KBContactsSelectionConfiguration*)defaultConfiguration;
 

@@ -59,15 +59,23 @@ static NSString *cellIdentifier = @"KBContactCell";
     ab.fieldsMask = APContactFieldFirstName | APContactFieldLastName | APContactFieldPhonesWithLabels | APContactFieldEmails | APContactFieldRecordID;
     ab.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]];
     
-    if (_configuration.mode == KBContactsSelectionModeMessages) {
-        ab.filterBlock = ^BOOL(APContact *contact){
-            return contact.phonesWithLabels.count > 0;
-        };
-    } else {
-        ab.filterBlock = ^BOOL(APContact *contact){
-            return contact.emails.count > 0;
-        };
-    }
+    ab.filterBlock = ^BOOL(APContact *contact){
+        if (_configuration.skipUnnamedContacts && contact.fullName.length < 1) {
+            return NO;
+        }
+        
+        if (_configuration.mode & KBContactsSelectionModeMessages) {
+            if (contact.phonesWithLabels.count > 0) {
+                return YES;
+            }
+        }
+        if (_configuration.mode & KBContactsSelectionModeEmail) {
+            if (contact.emails.count > 0) {
+                return YES;
+            }
+        }
+        return NO;
+    };
     
     [ab loadContacts:^(NSArray *contacts, NSError *error) {
         if (contacts) {
@@ -101,19 +109,24 @@ static NSString *cellIdentifier = @"KBContactCell";
     for (APContact *contact in array) {
         BOOL fullNamesEqual = [[contact fullName] isEqualToString:searchedContactFullName];
         
-        if (_configuration.mode == KBContactsSelectionModeMessages) {
-            NSString *searchedContactPhone = ((APPhoneWithLabel*) searchedContact.phonesWithLabels[0]).phone;
-            BOOL phonesEqual = [((APPhoneWithLabel*) contact.phonesWithLabels[0]).phone isEqualToString:searchedContactPhone];
-        
-            if (fullNamesEqual && phonesEqual) {
-                return YES;
+        if (_configuration.mode & KBContactsSelectionModeMessages) {
+            if (contact.phonesWithLabels.count > 0 && searchedContact.phonesWithLabels.count > 0) {
+                NSString *searchedContactPhone = ((APPhoneWithLabel*) searchedContact.phonesWithLabels[0]).phone;
+                BOOL phonesEqual = [((APPhoneWithLabel*) contact.phonesWithLabels[0]).phone isEqualToString:searchedContactPhone];
+                
+                if (fullNamesEqual && phonesEqual) {
+                    return YES;
+                }
             }
-        } else {
-            NSString *searchedContactEmail = searchedContact.emails[0];
-            BOOL emailsEqual = [contact.emails[0] isEqualToString:searchedContactEmail];
-            
-            if (fullNamesEqual && emailsEqual) {
-                return YES;
+        }
+        if (_configuration.mode & KBContactsSelectionModeEmail) {
+            if (contact.emails.count > 0 && searchedContact.emails.count > 0) {
+                NSString *searchedContactEmail = searchedContact.emails[0];
+                BOOL emailsEqual = [contact.emails[0] isEqualToString:searchedContactEmail];
+                
+                if (fullNamesEqual && emailsEqual) {
+                    return YES;
+                }
             }
         }
     }
@@ -253,19 +266,41 @@ static NSString *cellIdentifier = @"KBContactCell";
     if (contact) {
         cell.labelName.text = [contact fullName];
         
-        if (_configuration.mode == KBContactsSelectionModeMessages) {
-            APPhoneWithLabel *phoneWithLabel = contact.phonesWithLabels[0];
-            if (phoneWithLabel) {
-                cell.labelPhone.text = phoneWithLabel.phone;
-                cell.labelPhoneType.text = phoneWithLabel.label;
+        NSString * typeText = @"";
+        NSString * phoneText = nil;
+        if (_configuration.mode & KBContactsSelectionModeMessages) {
+            if (contact.phonesWithLabels.count > 0) {
+                APPhoneWithLabel *phoneWithLabel = contact.phonesWithLabels[0];
+                if (phoneWithLabel) {
+                    phoneText = phoneWithLabel.phone;
+                    typeText = phoneWithLabel.label;
+                }
             }
-        } else {
-            cell.labelPhone.text = contact.emails[0];
-            cell.labelPhoneType.text = @"";
         }
+        if (_configuration.mode & KBContactsSelectionModeEmail) {
+            if (contact.emails.count > 0) {
+                if (!phoneText) {
+                    phoneText = contact.emails[0];
+                } else {
+                    phoneText = [NSString stringWithFormat:@"%@, %@", phoneText, contact.emails[0]];
+                }
+            }
+        }
+        cell.labelPhone.text = phoneText;
+        cell.labelPhoneType.text = typeText;
         
         cell.buttonSelection.innerCircleFillColor = _configuration.tintColor;
         cell.buttonSelection.selected = [_selectedContactsRecordIds containsObject:contact.recordID];
+        
+        BOOL enabled = YES;
+        if (_configuration.contactEnabledValidation) {
+            if (!_configuration.contactEnabledValidation(contact)) {
+                enabled = NO;
+            }
+        }
+        cell.labelName.alpha = cell.labelPhone.alpha = (enabled? 1: 0.3);
+        cell.buttonSelection.enabled = enabled;
+        cell.userInteractionEnabled = enabled;
     }
     
     return cell;
@@ -293,19 +328,19 @@ static NSString *cellIdentifier = @"KBContactCell";
         BOOL selected = [_selectedContactsRecordIds containsObject:contact.recordID];
         if (selected) {
             [_selectedContactsRecordIds removeObject:contact.recordID];
-            if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
-                [_delegate didRemoveContact:contact];
+            if ([_delegate respondsToSelector:@selector(dataSource:didRemoveContact:)]) {
+                [_delegate dataSource:self didRemoveContact:contact];
             }
         } else {
             [_selectedContactsRecordIds addObject:contact.recordID];
-            if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
-                [_delegate didSelectContact:contact];
+            if ([_delegate respondsToSelector:@selector(dataSource:didSelectContact:)]) {
+                [_delegate dataSource:self didSelectContact:contact];
             }
         }
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
+    }
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {

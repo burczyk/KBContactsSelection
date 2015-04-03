@@ -12,10 +12,12 @@
 
 #import "APAddressBook.h"
 
+@class KBContactsTableViewDataSource;
+
 @protocol KBContactsTableViewDataSourceDelegate <NSObject>
 @optional
-- (void) didSelectContact:(APContact *)contact;
-- (void) didRemoveContact:(APContact *)contact;
+- (void)dataSource:(KBContactsTableViewDataSource*)datasource didSelectContact:(APContact *)contact;
+- (void)dataSource:(KBContactsTableViewDataSource*)datasource didRemoveContact:(APContact *)contact;
 @end
 
 

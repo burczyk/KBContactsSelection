@@ -13,16 +13,19 @@
 
 @interface KBContactsSelectionViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, KBContactsTableViewDataSourceDelegate>
 
+@property (strong) NSArray * selectedContacts;
+
 @property (nonatomic, strong) KBContactsTableViewDataSource *kBContactsTableViewDataSource;
 @property (nonatomic, strong) KBContactsSelectionConfiguration *configuration;
-
+@property IBOutlet UIView * additionalInfoContainer;
+@property IBOutlet NSLayoutConstraint * additionalInfoViewHeightConstraint;
 @end
 
 @implementation KBContactsSelectionViewController
 
 + (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock
 {
-    KBContactsSelectionViewController *vc = [[KBContactsSelectionViewController alloc] initWithNibName:@"KBContactsSelectionViewController" bundle:nil];
+    KBContactsSelectionViewController *vc = [[self alloc] initWithNibName:@"KBContactsSelectionViewController" bundle:nil];
     
     KBContactsSelectionConfiguration *configuration = [KBContactsSelectionConfiguration defaultConfiguration];
     
@@ -41,6 +44,41 @@
     [self prepareContactsDataSource];
     [self prepareNavigationBar];
     [self customizeColors];
+    
+    [self _showAdditionalInfoViewAnimated:NO];
+}
+
+- (void)setAdditionalInfoView:(UIView *)additionalInfoView
+{
+    if (additionalInfoView != _additionalInfoView) {
+        [_additionalInfoView removeFromSuperview];
+    }
+    _additionalInfoView = additionalInfoView;
+    [self _showAdditionalInfoViewAnimated:YES];
+}
+
+- (void)_showAdditionalInfoViewAnimated:(BOOL)animated
+{
+    if (self.additionalInfoView) {
+        CGRect r = self.additionalInfoContainer.bounds;
+        r.size.height = self.additionalInfoView.frame.size.height;
+        
+        self.additionalInfoView.frame = r;
+        self.additionalInfoView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.additionalInfoContainer addSubview:self.additionalInfoView];
+        
+        self.additionalInfoViewHeightConstraint.constant = r.size.height;
+    } else {
+        self.additionalInfoViewHeightConstraint.constant = 0;
+    }
+    
+    if (animated) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutSubviews];
+        }];
+    } else {
+        [self.view layoutSubviews];
+    }
 }
 
 - (void)prepareContactsDataSource
@@ -53,15 +91,34 @@
 
 - (void)prepareNavigationBar
 {
+    NSString * selectTitle = (_configuration.selectButtonTitle?:NSLocalizedString(@"Select", nil));
     if (!_configuration.shouldShowNavigationBar) {
         _navigationBarSearchContactsHeight.constant = 0;
         _navigationBarSearchContacts.hidden = YES;
         self.edgesForExtendedLayout = UIRectEdgeNone;
         
-        UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Select", nil) style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
+        UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:selectTitle style:UIBarButtonItemStylePlain target:self action:@selector(buttonSelectPushed:)];
         [self.navigationItem setRightBarButtonItem:bi animated:YES];
-        
-        self.title = NSLocalizedString(@"Search contacts", nil);
+        self.buttonItemSelect = bi;
+        self.buttonItemSelect.enabled = NO;
+    } else {
+        self.buttonItemSelect.title = selectTitle;
+    }
+    [self setTitle:_configuration.title];
+}
+
+- (void)setTitle:(NSString *)title
+{
+    if (!title) {
+        title = NSLocalizedString(@"Search contacts", nil);
+        _configuration.title = nil;
+    } else {
+        _configuration.title = title;
+    }
+    
+    [super setTitle:title];
+    if (_configuration.shouldShowNavigationBar) {
+        self.titleItem.title = title;
     }
 }
 
@@ -97,10 +154,14 @@
 }
 
 - (IBAction)buttonSelectPushed:(id)sender {
-    if (_configuration.mode == KBContactsSelectionModeMessages) {
-        [self showMessagesViewControllerWithSelectedContacts];
+    if (_configuration.customSelectButtonHandler) {
+        _configuration.customSelectButtonHandler([_kBContactsTableViewDataSource selectedContacts]);
     } else {
-        [self showEmailViewControllerWithSelectedContacts];
+        if (_configuration.mode & KBContactsSelectionModeMessages) {
+            [self showMessagesViewControllerWithSelectedContacts];
+        } else {
+            [self showEmailViewControllerWithSelectedContacts];
+        }
     }
 }
 
@@ -147,18 +208,24 @@
 
 #pragma mark - KBContactsTableViewDataSourceDelegate
 
-- (void) didSelectContact:(APContact *)contact
+- (void)dataSource:(KBContactsTableViewDataSource*)datasource didSelectContact:(APContact *)contact
 {
+    self.selectedContacts = _kBContactsTableViewDataSource.selectedContacts;
     if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
         [_delegate didSelectContact:contact];
     }
+    self.buttonItemSelect.enabled = self.selectedContacts.count > 0;
 }
 
-- (void) didRemoveContact:(APContact *)contact
+- (void)dataSource:(KBContactsTableViewDataSource*)datasource didRemoveContact:(APContact *)contact
 {
+    self.selectedContacts = _kBContactsTableViewDataSource.selectedContacts;
     if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
         [_delegate didRemoveContact:contact];
     }
+    self.buttonItemSelect.enabled = self.selectedContacts.count > 0;
 }
+
+
 
 @end

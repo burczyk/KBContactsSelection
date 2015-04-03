@@ -8,41 +8,95 @@
 
 #import "ViewController.h"
 #import "KBContactsSelectionViewController.h"
+#import <APAddressBook/APContact.h>
+#import <APAddressBook/APPhoneWithLabel.h>
 
 @interface ViewController () <KBContactsSelectionViewControllerDelegate>
-
+@property (weak) KBContactsSelectionViewController* presentedCSVC;
 @end
 
 @implementation ViewController
 
 - (IBAction)push:(UIButton *)sender {
     
-    KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
-        configuration.mode = KBContactsSelectionModeMessages;
+    __block KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
         configuration.shouldShowNavigationBar = NO;
         configuration.tintColor = [UIColor colorWithRed:11.0/255 green:211.0/255 blue:24.0/255 alpha:1];
+        configuration.title = @"Push";
+        configuration.selectButtonTitle = @"+";
+        
+        configuration.mode = KBContactsSelectionModeMessages | KBContactsSelectionModeEmail;
+        configuration.skipUnnamedContacts = YES;
+        configuration.customSelectButtonHandler = ^(NSArray * contacts) {
+            NSLog(@"%@", contacts);
+        };
+        configuration.contactEnabledValidation = ^(id contact) {
+            APContact * _c = contact;
+            if ([_c phonesWithLabels].count > 0) {
+                NSString * phone = ((APPhoneWithLabel*) _c.phonesWithLabels[0]).phone;
+                if ([phone containsString:@"888"]) {
+                    return NO;
+                }
+            }
+            return YES;
+        };
     }];
     [vc setDelegate:self];
     [self.navigationController pushViewController:vc animated:YES];
+    self.presentedCSVC = vc;
+    
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 24)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"Select people you want to text";
+
+    vc.additionalInfoView = label;
 }
 
 - (IBAction)present:(UIButton *)sender {
     
-    KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
+    __block KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
         configuration.tintColor = [UIColor orangeColor];
         configuration.mode = KBContactsSelectionModeEmail;
+        configuration.title = @"Present";
+        configuration.selectButtonTitle = @"Invite";
+        configuration.customSelectButtonHandler = ^(NSArray * contacts) {
+            NSLog(@"%@", contacts);
+        };
     }];
+    
+    
     [vc setDelegate:self];
     [self presentViewController:vc animated:YES completion:nil];
+    self.presentedCSVC = vc;
+    
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 24)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"Select people you want to email";
+    
+    vc.additionalInfoView = label;
 }
 
 #pragma mark - KBContactsSelectionViewControllerDelegate
 - (void) didSelectContact:(APContact *)contact {
-    NSLog(@"Selected contact: %@", [contact fullName]);
+    
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 36)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = [NSString stringWithFormat:@"%@ Selected", @(self.presentedCSVC.selectedContacts.count)];
+    
+    self.presentedCSVC.additionalInfoView = label;
+    
+    NSLog(@"%@", self.presentedCSVC.selectedContacts);
 }
 
 - (void) didRemoveContact:(APContact *)contact {
-    NSLog(@"Removed contact: %@", [contact fullName]);
+    
+    __block UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 36)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = [NSString stringWithFormat:@"%@ Selected", @(self.presentedCSVC.selectedContacts.count)];
+    
+    self.presentedCSVC.additionalInfoView = label;
+    
+    NSLog(@"%@", self.presentedCSVC.selectedContacts);
 }
 
 @end

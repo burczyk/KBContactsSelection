@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KBContactsSelectionViewController">
             <connections>
+                <outlet property="additionalInfoContainer" destination="gm1-Lo-cje" id="wtN-Cp-0RR"/>
+                <outlet property="additionalInfoViewHeightConstraint" destination="Yn3-Dg-ud5" id="8xs-md-bBu"/>
                 <outlet property="buttonItemCancel" destination="J04-gD-EO4" id="Bqm-6V-rtJ"/>
                 <outlet property="buttonItemSelect" destination="laD-ha-fcH" id="60U-wV-gxx"/>
                 <outlet property="navigationBarSearchContacts" destination="7im-vS-Aea" id="Oof-qE-tEo"/>
                 <outlet property="navigationBarSearchContactsHeight" destination="v5x-yQ-Nrk" id="65E-HA-zJz"/>
                 <outlet property="searchBar" destination="Byb-Dh-My7" id="OJM-np-NNn"/>
                 <outlet property="tableView" destination="Cyg-M5-sZF" id="Efi-0q-hA7"/>
+                <outlet property="titleItem" destination="Rf7-hQ-7tx" id="kY7-92-xSa"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -40,32 +43,41 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <searchBar contentMode="redraw" placeholder="Type contact name" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byb-Dh-My7">
-                    <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cyg-M5-sZF">
+                    <rect key="frame" x="0.0" y="168" width="600" height="432"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gm1-Lo-cje" userLabel="CustomInfoContainer">
+                    <rect key="frame" x="0.0" y="64" width="600" height="60"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="Yn3-Dg-ud5"/>
+                    </constraints>
+                </view>
+                <searchBar contentMode="redraw" placeholder="Type contact name" translatesAutoresizingMaskIntoConstraints="NO" id="Byb-Dh-My7">
+                    <rect key="frame" x="0.0" y="124" width="600" height="44"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="Co5-Ed-pM6"/>
                     </connections>
                 </searchBar>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cyg-M5-sZF">
-                    <rect key="frame" x="0.0" y="108" width="600" height="492"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Byb-Dh-My7" firstAttribute="top" secondItem="7im-vS-Aea" secondAttribute="bottom" id="2zN-3y-eDw"/>
+                <constraint firstItem="Byb-Dh-My7" firstAttribute="bottom" secondItem="Cyg-M5-sZF" secondAttribute="top" id="2cW-Qf-Vm8"/>
+                <constraint firstItem="gm1-Lo-cje" firstAttribute="top" secondItem="7im-vS-Aea" secondAttribute="bottom" id="HAh-ac-GeA"/>
                 <constraint firstItem="Cyg-M5-sZF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HQB-OA-THu"/>
                 <constraint firstItem="7im-vS-Aea" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KlR-YT-8ez"/>
                 <constraint firstAttribute="trailing" secondItem="Cyg-M5-sZF" secondAttribute="trailing" id="OKh-3q-fAT"/>
+                <constraint firstAttribute="trailing" secondItem="gm1-Lo-cje" secondAttribute="trailing" id="OjM-aK-2xh"/>
+                <constraint firstItem="Byb-Dh-My7" firstAttribute="trailing" secondItem="gm1-Lo-cje" secondAttribute="trailing" id="PhN-Tq-tTy"/>
                 <constraint firstItem="Cyg-M5-sZF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PiY-iy-QJg"/>
-                <constraint firstItem="Byb-Dh-My7" firstAttribute="top" secondItem="7im-vS-Aea" secondAttribute="bottom" id="b6N-ky-J5r"/>
+                <constraint firstItem="Byb-Dh-My7" firstAttribute="leading" secondItem="gm1-Lo-cje" secondAttribute="leading" id="cfb-JQ-m3i"/>
+                <constraint firstItem="gm1-Lo-cje" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="e6u-7U-u84"/>
                 <constraint firstItem="7im-vS-Aea" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eLN-VV-C4Q"/>
-                <constraint firstItem="Cyg-M5-sZF" firstAttribute="top" secondItem="Byb-Dh-My7" secondAttribute="bottom" id="hei-Sb-3q4"/>
                 <constraint firstAttribute="bottom" secondItem="Cyg-M5-sZF" secondAttribute="bottom" id="plE-6k-sAq"/>
                 <constraint firstAttribute="trailing" secondItem="7im-vS-Aea" secondAttribute="trailing" id="qgE-y9-xH7"/>
-                <constraint firstItem="Byb-Dh-My7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rcS-P7-VUc"/>
-                <constraint firstAttribute="trailing" secondItem="Byb-Dh-My7" secondAttribute="trailing" id="shD-YF-Pi7"/>
+                <constraint firstItem="Byb-Dh-My7" firstAttribute="top" secondItem="gm1-Lo-cje" secondAttribute="bottom" id="wDU-Jw-67F"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">

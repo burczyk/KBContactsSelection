@@ -39,7 +39,9 @@ static NSString *cellIdentifier = @"KBContactCell";
         _configuration = configuration;
         
         [self initializeArrays];
-        [self loadContacts];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self loadContacts];
+        });
     }
     return self;
 }
@@ -55,6 +57,7 @@ static NSString *cellIdentifier = @"KBContactCell";
 
 - (void)loadContacts
 {
+    [self.delegate dataSourceWillLoadContacts:self];
     APAddressBook *ab = [[APAddressBook alloc] init];
     ab.fieldsMask = APContactFieldFirstName | APContactFieldLastName | APContactFieldPhonesWithLabels | APContactFieldEmails | APContactFieldRecordID;
     ab.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]];
@@ -84,6 +87,7 @@ static NSString *cellIdentifier = @"KBContactCell";
             self.contacts = filteredContacts;
         }
         [self updateAfterModifyingContacts];
+        [self.delegate dataSourceDidLoadContacts:self];
     }];
 }
 

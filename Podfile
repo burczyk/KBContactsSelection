@@ -4,6 +4,7 @@
 target 'KBContactsSelectionExample' do
 
 pod 'APAddressBook'
+pod 'SVProgressHUD'
 
 end
 

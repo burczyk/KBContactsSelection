@@ -211,8 +211,14 @@
 - (void)dataSource:(KBContactsTableViewDataSource*)datasource didSelectContact:(APContact *)contact
 {
     self.selectedContacts = _kBContactsTableViewDataSource.selectedContacts;
-    if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
+    if ([_delegate respondsToSelector:@selector(contactsSelection:didSelectContact:)]) {
+        [_delegate contactsSelection:self didSelectContact:contact];
+    } else if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
+        NSLog(@"Using depracated protocol didSelectContact:");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
         [_delegate didSelectContact:contact];
+#pragma clang diagnostic pop
     }
     self.buttonItemSelect.enabled = self.selectedContacts.count > 0;
 }
@@ -220,12 +226,29 @@
 - (void)dataSource:(KBContactsTableViewDataSource*)datasource didRemoveContact:(APContact *)contact
 {
     self.selectedContacts = _kBContactsTableViewDataSource.selectedContacts;
-    if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
+    if ([_delegate respondsToSelector:@selector(contactsSelection:didRemoveContact:)]) {
+        [_delegate contactsSelection:self didRemoveContact:contact];
+    } else if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
+        NSLog(@"Using depracated protocol didRemoveContact:");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
         [_delegate didRemoveContact:contact];
+#pragma clang diagnostic pop
     }
     self.buttonItemSelect.enabled = self.selectedContacts.count > 0;
 }
 
-
+- (void)dataSourceWillLoadContacts:(KBContactsTableViewDataSource*)datasource
+{
+    if ([_delegate respondsToSelector:@selector(contactsSelectionWillLoadContacts:)]) {
+        [_delegate contactsSelectionWillLoadContacts:self];
+    }
+}
+- (void)dataSourceDidLoadContacts:(KBContactsTableViewDataSource*)datasource
+{
+    if ([_delegate respondsToSelector:@selector(contactsSelectionDidLoadContacts:)]) {
+        [_delegate contactsSelectionDidLoadContacts:self];
+    }
+}
 
 @end

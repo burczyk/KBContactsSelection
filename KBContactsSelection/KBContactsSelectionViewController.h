@@ -11,11 +11,19 @@
 #import "KBContactsTableViewDataSource.h"
 #import "APContact+FullName.h"
 
+@class KBContactsSelectionViewController;
 
 @protocol KBContactsSelectionViewControllerDelegate <NSObject>
 @optional
-- (void) didSelectContact:(APContact *)contact;
-- (void) didRemoveContact:(APContact *)contact;
+- (void) contactsSelectionWillLoadContacts:(KBContactsSelectionViewController *)csvc;
+- (void) contactsSelectionDidLoadContacts:(KBContactsSelectionViewController *)csvc;
+
+- (void) contactsSelection:(KBContactsSelectionViewController *)selection didSelectContact:(APContact *)contact;
+- (void) contactsSelection:(KBContactsSelectionViewController *)selection didRemoveContact:(APContact *)contact;
+
+// Depracated. Use methods above.
+- (void) didSelectContact:(APContact *)contact DEPRECATED_ATTRIBUTE;
+- (void) didRemoveContact:(APContact *)contact DEPRECATED_ATTRIBUTE;
 @end
 
 @interface KBContactsSelectionViewController : UIViewController

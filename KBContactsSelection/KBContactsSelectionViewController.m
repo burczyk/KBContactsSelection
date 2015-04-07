@@ -214,8 +214,8 @@
     if ([_delegate respondsToSelector:@selector(contactsSelection:didSelectContact:)]) {
         [_delegate contactsSelection:self didSelectContact:contact];
     } else if ([_delegate respondsToSelector:@selector(didSelectContact:)]) {
-#pragma clang diagnostic push
         NSLog(@"Using depracated protocol didSelectContact:");
+#pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
         [_delegate didSelectContact:contact];
 #pragma clang diagnostic pop
@@ -229,9 +229,9 @@
     if ([_delegate respondsToSelector:@selector(contactsSelection:didRemoveContact:)]) {
         [_delegate contactsSelection:self didRemoveContact:contact];
     } else if ([_delegate respondsToSelector:@selector(didRemoveContact:)]) {
+        NSLog(@"Using depracated protocol didRemoveContact:");
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
-        NSLog(@"Using depracated protocol didRemoveContact:");
         [_delegate didRemoveContact:contact];
 #pragma clang diagnostic pop
     }

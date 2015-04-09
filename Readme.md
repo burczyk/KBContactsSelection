@@ -76,6 +76,8 @@ KBContactSelectionHandler customSelectButtonHandler;
 
 **skipUnnamedContacts** automatically will filter out all contacts without a First or Last name set.
 
+**searchByKeywords** will allow to search for names using keywords (Searching for 'f b' would filter 'Felipe Baytelman' and 'Bruno Finstein').
+
 **contactEnabledValidation** can be used to manually enable/disable contacts in the list, using a custom block ```BOOL(^KBContactValidation)(APContact * contact)```. When defined, this block will be called for each contact.
 
 **selectButtonTitle** let's you customize the `text` of the Select button. Using default `nil` will display a localized version of Select.

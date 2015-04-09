@@ -57,7 +57,7 @@ static NSString *cellIdentifier = @"KBContactCell";
 
 - (void)loadContacts
 {
-    [self.delegate dataSourceWillLoadContacts:self];
+            [self.delegate dataSourceWillLoadContacts:self];
     APAddressBook *ab = [[APAddressBook alloc] init];
     ab.fieldsMask = APContactFieldFirstName | APContactFieldLastName | APContactFieldPhonesWithLabels | APContactFieldEmails | APContactFieldRecordID;
     ab.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]];
@@ -81,14 +81,14 @@ static NSString *cellIdentifier = @"KBContactCell";
     };
     
     [ab loadContacts:^(NSArray *contacts, NSError *error) {
-        if (contacts) {
-            NSArray *filteredContacts = [self filteredDuplicatedContacts:contacts];
+         if (contacts) {
+             NSArray *filteredContacts = [self filteredDuplicatedContacts:contacts];
             self.unmodifiedContacts = filteredContacts;
-            self.contacts = filteredContacts;
-        }
+             self.contacts = filteredContacts;
+         }
         [self updateAfterModifyingContacts];
-        [self.delegate dataSourceDidLoadContacts:self];
-    }];
+                 [self.delegate dataSourceDidLoadContacts:self];
+     }];
 }
 
 //This method filters duplicated contacts by full name and phone.
@@ -174,12 +174,34 @@ static NSString *cellIdentifier = @"KBContactCell";
 
 - (void)runSearch:(NSString*)text
 {
+    NSMutableArray * keywords = [text componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].mutableCopy;
+    while ([keywords containsObject:@""]) {
+        [keywords removeObject:@""];
+    }
+    
     if (text.length == 0) {
         _contacts = _unmodifiedContacts;
     } else {
         NSMutableArray *filteredContacts = [NSMutableArray array];
         [_unmodifiedContacts enumerateObjectsUsingBlock:^(APContact *contact, NSUInteger idx, BOOL *stop) {
-            if ([[contact fullName] rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound) {
+            BOOL shouldAdd = YES;
+            
+            if (self.configuration.searchByKeywords) {
+                NSMutableArray * pendingKeywords = keywords.mutableCopy;
+                NSArray * components = [[contact fullName].lowercaseString componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
+                for (NSString * key in pendingKeywords.copy) {
+                    for (NSString * component in components) {
+                        if ([component hasPrefix:key]) {
+                            [pendingKeywords removeObject:key];
+                            break;
+                        }
+                    }
+                }
+                shouldAdd = pendingKeywords.count == 0;
+            } else {
+                shouldAdd = [[contact fullName] rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound;
+            }
+            if (shouldAdd) {
                 [filteredContacts addObject:contact];
             }
         }];

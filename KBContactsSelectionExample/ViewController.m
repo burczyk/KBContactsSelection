@@ -63,6 +63,9 @@
         configuration.customSelectButtonHandler = ^(NSArray * contacts) {
             NSLog(@"%@", contacts);
         };
+        
+        configuration.searchByKeywords = YES;
+        
     }];
     
     

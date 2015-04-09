@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "KBContactsSelection"
-  s.version      = "1.2.2"
+  s.version      = "1.2.3"
   s.summary      = "Standalone UI component to search and select contacts."
 
   s.description  = <<-DESC
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/KamilBurczyk"
 
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/burczyk/KBContactsSelection.git", :tag => "1.2.2" }
+  s.source       = { :git => "https://github.com/burczyk/KBContactsSelection.git", :tag => "1.2.3" }
 
   s.source_files  = "KBContactsSelection", "KBContactsSelection/**/*.{h,m}"
   s.resources = "KBContactsSelection/*.xib"

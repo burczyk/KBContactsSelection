@@ -174,7 +174,7 @@ static NSString *cellIdentifier = @"KBContactCell";
 
 - (void)runSearch:(NSString*)text
 {
-    NSMutableArray * keywords = [_lastSearch componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].mutableCopy;
+    NSMutableArray * keywords = [text componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].mutableCopy;
     while ([keywords containsObject:@""]) {
         [keywords removeObject:@""];
     }

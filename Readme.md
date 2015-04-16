@@ -117,7 +117,7 @@ KBContactsSelectionViewController *vc = [KBContactsSelectionViewController conta
     configuration.tintColor = [UIColor orangeColor];
     configuration.mode = KBContactsSelectionModeEmail;
     configuration.skipUnnamedContacts = YES;
-    configuration.contactEnabledValidation = ^(APContact * contact) {
+    configuration.contactEnabledValidation = ^BOOL(APContact * contact) {
     	return contact.photo != nil;
     };
 }];

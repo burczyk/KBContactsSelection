@@ -18,6 +18,10 @@
     configuration.mode = KBContactsSelectionModeMessages;
     configuration.shouldShowNavigationBar = YES;
     configuration.selectButtonTitle = nil;
+    configuration.mailBody = @"";
+    configuration.mailIsHTML = false;
+    configuration.mailSubject = @"";
+    configuration.messageBody = @"";
     
     return configuration;
 }

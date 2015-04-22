@@ -171,6 +171,7 @@
         MFMessageComposeViewController *messageComposeVC = [[MFMessageComposeViewController alloc] init];
         messageComposeVC.messageComposeDelegate = self;
         messageComposeVC.recipients = [_kBContactsTableViewDataSource phonesOfSelectedContacts];
+        messageComposeVC.body = _configuration.messageBody;
         [self presentViewController:messageComposeVC animated:YES completion:nil];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Messaging not supported", @"") message:NSLocalizedString(@"Messaging on this device is not supported.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles: nil];
@@ -184,6 +185,8 @@
         MFMailComposeViewController *mailComposeVC = [[MFMailComposeViewController alloc] init];
         mailComposeVC.mailComposeDelegate = self;
         [mailComposeVC setToRecipients:[_kBContactsTableViewDataSource emailsOfSelectedContacts]];
+        [mailComposeVC setMessageBody:_configuration.mailBody isHTML:_configuration.mailIsHTML];
+        [mailComposeVC setTitle:_configuration.mailSubject];
         
         [self presentViewController:mailComposeVC animated:YES completion:nil];
     } else {

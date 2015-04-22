@@ -26,6 +26,12 @@ typedef NS_ENUM(NSInteger, KBContactsSelectionMode) {
 @property (nonatomic, assign) BOOL shouldShowNavigationBar;
 @property (nonatomic, strong) NSString * title;
 
+/* Customize text/email content */
+@property (nonatomic, strong) NSString * messageBody;
+@property (nonatomic, strong) NSString * mailBody;
+@property (nonatomic, strong) NSString * mailSubject;
+@property (nonatomic, assign) BOOL mailIsHTML;
+
 /* Contacts behavior */
 @property (nonatomic, assign) enum KBContactsSelectionMode mode;
 @property (nonatomic, assign) BOOL skipUnnamedContacts;

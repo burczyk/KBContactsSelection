@@ -66,6 +66,15 @@ NSString * selectButtonTitle;
 KBContactSelectionHandler customSelectButtonHandler;
 ```
 
+**Define Text/E-mail**
+
+```objective-c
+configuration.mailBody = @"Some mail body";
+configuration.mailIsHTML = false;
+configuration.mailSubject = @"Important Subject";
+configuration.messageBody = @"This is text content";
+```
+
 **tintColor** is responsible for setting navigation bar `tintColor`, table view `sectionIndexColor` and search bar `tintColor`.
 
 **shouldShowNavigationBar** hides navigation bar from `KBContactsSelectionViewController` and should set when you push this view controller instead of presenting it.
@@ -117,7 +126,7 @@ KBContactsSelectionViewController *vc = [KBContactsSelectionViewController conta
     configuration.tintColor = [UIColor orangeColor];
     configuration.mode = KBContactsSelectionModeEmail;
     configuration.skipUnnamedContacts = YES;
-    configuration.contactEnabledValidation = ^(APContact * contact) {
+    configuration.contactEnabledValidation = ^BOOL(APContact * contact) {
     	return contact.photo != nil;
     };
 }];

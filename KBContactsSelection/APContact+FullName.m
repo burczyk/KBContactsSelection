@@ -14,12 +14,12 @@
 {
     NSString *result = @"";
     
-    if (self.firstName) {
-        result = self.firstName;
+    if (self.name.firstName) {
+        result = self.name.firstName;
     }
     
-    if (self.lastName) {
-        result = [NSString stringWithFormat:@"%@ %@", result, self.lastName];
+    if (self.name.lastName) {
+        result = [NSString stringWithFormat:@"%@ %@", result, self.name.lastName];
     }
     
     return result;

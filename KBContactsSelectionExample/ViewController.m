@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "KBContactsSelectionViewController.h"
 #import <APAddressBook/APContact.h>
-#import <APAddressBook/APPhoneWithLabel.h>
 #import <SVProgressHUD.h>
 
 @interface ViewController () <KBContactsSelectionViewControllerDelegate>
@@ -33,8 +32,8 @@
         };
         configuration.contactEnabledValidation = ^(id contact) {
             APContact * _c = contact;
-            if ([_c phonesWithLabels].count > 0) {
-                NSString * phone = ((APPhoneWithLabel*) _c.phonesWithLabels[0]).phone;
+            if ([_c phones].count > 0) {
+                NSString * phone = ((APPhone*) _c.phones[0]).number;
                 if ([phone containsString:@"888"]) {
                     return NO;
                 }

@@ -9,7 +9,6 @@
 #import "KBContactsTableViewDataSource.h"
 #import "KBContactCell.h"
 #import "APContact+FullName.h"
-#import "APPhoneWithLabel.h"
 
 @interface KBContactsTableViewDataSource()
 
@@ -57,10 +56,29 @@ static NSString *cellIdentifier = @"KBContactCell";
 
 - (void)loadContacts
 {
+//    APContactFieldName             = 1 << 0,
+//    APContactFieldJob              = 1 << 1,
+//    APContactFieldThumbnail        = 1 << 2,
+//    APContactFieldPhonesOnly       = 1 << 3,
+//    APContactFieldPhonesWithLabels = 1 << 4,
+//    APContactFieldEmailsOnly       = 1 << 5,
+//    APContactFieldEmailsWithLabels = 1 << 6,
+//    APContactFieldAddresses        = 1 << 7,
+//    APContactFieldSocialProfiles   = 1 << 8,
+//    APContactFieldBirthday         = 1 << 9,
+//    APContactFieldWebsites         = 1 << 10,
+//    APContactFieldNote             = 1 << 11,
+//    APContactFieldRelatedPersons   = 1 << 12,
+//    APContactFieldLinkedRecordIDs  = 1 << 13,
+//    APContactFieldSource           = 1 << 14,
+//    APContactFieldRecordDate       = 1 << 15,
+//    APContactFieldDefault          = APContactFieldName | APContactFieldPhonesOnly,
+//    APContactFieldAll              = 0xFFFFFFFF
+    
     [self.delegate dataSourceWillLoadContacts:self];
     APAddressBook *ab = [[APAddressBook alloc] init];
-    ab.fieldsMask = APContactFieldFirstName | APContactFieldLastName | APContactFieldPhonesWithLabels | APContactFieldEmails | APContactFieldRecordID;
-    ab.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]];
+    ab.fieldsMask = APContactFieldName | APContactFieldPhonesWithLabels | APContactFieldEmailsWithLabels | APContactFieldLinkedRecordIDs;
+    ab.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name.firstName" ascending:YES]];
     
     ab.filterBlock = ^BOOL(APContact *contact){
         if (_configuration.skipUnnamedContacts && contact.fullName.length < 1) {
@@ -68,7 +86,7 @@ static NSString *cellIdentifier = @"KBContactCell";
         }
         
         if (_configuration.mode & KBContactsSelectionModeMessages) {
-            if (contact.phonesWithLabels.count > 0) {
+            if (contact.phones.count > 0) {
                 return YES;
             }
         }
@@ -114,9 +132,9 @@ static NSString *cellIdentifier = @"KBContactCell";
         BOOL fullNamesEqual = [[contact fullName] isEqualToString:searchedContactFullName];
         
         if (_configuration.mode & KBContactsSelectionModeMessages) {
-            if (contact.phonesWithLabels.count > 0 && searchedContact.phonesWithLabels.count > 0) {
-                NSString *searchedContactPhone = ((APPhoneWithLabel*) searchedContact.phonesWithLabels[0]).phone;
-                BOOL phonesEqual = [((APPhoneWithLabel*) contact.phonesWithLabels[0]).phone isEqualToString:searchedContactPhone];
+            if (contact.phones.count > 0 && searchedContact.phones.count > 0) {
+                NSString *searchedContactPhone = ((APPhone*) searchedContact.phones[0]).number;
+                BOOL phonesEqual = [((APPhone*) contact.phones[0]).number isEqualToString:searchedContactPhone];
                 
                 if (fullNamesEqual && phonesEqual) {
                     return YES;
@@ -125,8 +143,8 @@ static NSString *cellIdentifier = @"KBContactCell";
         }
         if (_configuration.mode & KBContactsSelectionModeEmail) {
             if (contact.emails.count > 0 && searchedContact.emails.count > 0) {
-                NSString *searchedContactEmail = searchedContact.emails[0];
-                BOOL emailsEqual = [contact.emails[0] isEqualToString:searchedContactEmail];
+                NSString *searchedContactEmail = searchedContact.emails[0].address;
+                BOOL emailsEqual = [contact.emails[0].address isEqualToString:searchedContactEmail];
                 
                 if (fullNamesEqual && emailsEqual) {
                     return YES;
@@ -244,8 +262,8 @@ static NSString *cellIdentifier = @"KBContactCell";
     NSMutableArray *result = [NSMutableArray array];
     
     [[self selectedContacts] enumerateObjectsUsingBlock:^(APContact *contact, NSUInteger idx, BOOL *stop) {
-        if (contact.phonesWithLabels && contact.phonesWithLabels.count > 0) {
-            [result addObject:((APPhoneWithLabel*)contact.phonesWithLabels[0]).phone];
+        if (contact.phones && contact.phones.count > 0) {
+            [result addObject:((APPhone*)contact.phones[0]).number];
         }
     }];
     
@@ -258,7 +276,7 @@ static NSString *cellIdentifier = @"KBContactCell";
     
     [[self selectedContacts] enumerateObjectsUsingBlock:^(APContact *contact, NSUInteger idx, BOOL *stop) {
         if (contact.emails && contact.emails.count > 0) {
-            [result addObject:contact.emails[0]];
+            [result addObject:contact.emails[0].address];
         }
     }];
     
@@ -295,20 +313,20 @@ static NSString *cellIdentifier = @"KBContactCell";
         NSString * typeText = @"";
         NSString * phoneText = nil;
         if (_configuration.mode & KBContactsSelectionModeMessages) {
-            if (contact.phonesWithLabels.count > 0) {
-                APPhoneWithLabel *phoneWithLabel = contact.phonesWithLabels[0];
-                if (phoneWithLabel) {
-                    phoneText = phoneWithLabel.phone;
-                    typeText = phoneWithLabel.label;
+            if (contact.phones.count > 0) {
+                APPhone *phone = contact.phones[0];
+                if (phone) {
+                    phoneText = phone.number;
+                    typeText = phone.localizedLabel;
                 }
             }
         }
         if (_configuration.mode & KBContactsSelectionModeEmail) {
             if (contact.emails.count > 0) {
                 if (!phoneText) {
-                    phoneText = contact.emails[0];
+                    phoneText = contact.emails[0].address;
                 } else {
-                    phoneText = [NSString stringWithFormat:@"%@, %@", phoneText, contact.emails[0]];
+                    phoneText = [NSString stringWithFormat:@"%@, %@", phoneText, contact.emails[0].address];
                 }
             }
         }

@@ -25,7 +25,7 @@
 
 + (KBContactsSelectionViewController*)contactsSelectionViewControllerWithConfiguration:(void (^)(KBContactsSelectionConfiguration* configuration))configurationBlock
 {
-    KBContactsSelectionViewController *vc = [[self alloc] initWithNibName:@"KBContactsSelectionViewController" bundle:nil];
+    KBContactsSelectionViewController *vc = [[self alloc] initWithNibName:@"KBContactsSelectionViewController" bundle:[NSBundle bundleForClass:[KBContactsSelectionViewController class]]];
     
     KBContactsSelectionConfiguration *configuration = [KBContactsSelectionConfiguration defaultConfiguration];
     

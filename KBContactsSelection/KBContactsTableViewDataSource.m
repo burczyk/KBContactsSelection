@@ -34,7 +34,7 @@ static NSString *cellIdentifier = @"KBContactCell";
     self = [super init];
     if (self) {
         _tableView = tableView;
-        [_tableView registerNib:[UINib nibWithNibName:@"KBContactCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
+        [_tableView registerNib:[UINib nibWithNibName:@"KBContactCell" bundle:[NSBundle bundleForClass:[KBContactsTableViewDataSource class]] forCellReuseIdentifier:cellIdentifier];
         _configuration = configuration;
         
         [self initializeArrays];

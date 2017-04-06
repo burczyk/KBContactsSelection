@@ -1,14 +1,14 @@
-#KBContactsSelection
+# KBContactsSelection
 **KBContactsSelection** is a standalone UI and logic component that allows you to easily search and select contacts in your Address Book and redirect to Mail or Messages with results.
 
-##Showcase
+## Showcase
 Notice elegant solution with phone number, emails and final redirect difference.
 
 ![KBContactsSelection screen 1](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection.png)
 
 ![KBContactsSelection gif](https://raw.githubusercontent.com/burczyk/KBContactsSelection/master/assets/KBContactsSelection.gif)
 
-##Installation
+## Installation
 **KBContactsSelection** is available via [CocoaPods](http://cocoapods.org). To use it simply add one line to your Podfile:
 
 ```
@@ -21,7 +21,7 @@ and then add required `import`:
 #import "KBContactsSelectionViewController.h"
 ```
 
-##Configuration
+## Configuration
 The public element of library is `KBContactsSelectionViewController` class. It contains one convenient method to create instance of itself with proper configuration:
 
 ```objective-c
@@ -93,8 +93,8 @@ configuration.messageBody = @"This is text content";
 
 **customSelectButtonHandler** allows to call a custom action (block) on the selected contacts when the users taps the Select button. By default, when this value is `nil`, an email composer will be prompted or a SMS message composer will be presented (depending on selected `mode`). If `customSelectButtonHandler` is defined (`void(^KBContactSelectionHandler)(NSArray * selectedContacts)`), it will be invoked with an `NSArray` of `APContact` objects. 
 
-##Usage
-###Pushing KBContactsSelectionViewController with phone numbers
+## Usage
+### Pushing KBContactsSelectionViewController with phone numbers
 
 ```objective-c
 KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
@@ -106,7 +106,7 @@ KBContactsSelectionViewController *vc = [KBContactsSelectionViewController conta
 [self.navigationController pushViewController:vc animated:YES];
 ```
 
-###Presenting KBContactsSelectionViewController with emails
+### Presenting KBContactsSelectionViewController with emails
 
 ```objective-c
 KBContactsSelectionViewController *vc = [KBContactsSelectionViewController contactsSelectionViewControllerWithConfiguration:^(KBContactsSelectionConfiguration *configuration) {
@@ -117,7 +117,7 @@ KBContactsSelectionViewController *vc = [KBContactsSelectionViewController conta
 [self presentViewController:vc animated:YES completion:nil];
 ```
 
-###Enabling specific contacts and customizing select action
+### Enabling specific contacts and customizing select action
 
 This example will enable those rows corresponding to contacts with photos.
 
@@ -136,10 +136,10 @@ KBContactsSelectionViewController *vc = [KBContactsSelectionViewController conta
 
 Each property of `KBContactsSelectionConfiguration` can be freely modified although it is advised not to hide navigation bar when presented and hide it when pushed.
 
-##Example project
+## Example project
 Example project is attached to this repository. Open `KBContactsSelectionExample.xcworkspace`, install all required dependencies by performing `pod install` and run the the same demo as in gif above.
 
-##Known issues
+## Known issues
 iOS Simulator obviously doesn't support messaging (proper alert) and apparently has some issues with presenting `MFMailComposeViewController`:
 
 ```
@@ -150,8 +150,8 @@ It works fine on real device but fails on Simulator which is probably a bug. Som
 
 This is why presented email view controller in gif doesn't have recipients entered.
 
-##Components
-###KBContactsSelectionViewController
+## Components
+### KBContactsSelectionViewController
 Is a main component of whole library and probably the only one you should explicitly use. For a convenience it has some self-describing public properties to tweak its behavior:
 
 ```objective-c
@@ -194,7 +194,7 @@ vc.additionalInfoView = instructionsLabel;
 
 Despite the fact that `KBContactsSelectionViewController` contains table view it doesn't act as its data source or delegate. It passes all responsibilities regarding table view to `KBContactsTableViewDataSource` component.
 
-###KBContactsTableViewDataSource
+### KBContactsTableViewDataSource
 Is an object that adopts two protocols: `<UITableViewDataSource, UITableViewDelegate>` and is fully responsible for rendering, filtering and capturing contacts in table view.
 
 It starts with loading all contacts once and storing them in immutable array for performance reasons. Then it groups the contacts in a dictionary where keys are first letters of full name and values are sorted arrays of all contacts whose name starts with this letter.
@@ -205,10 +205,10 @@ All selected contacts are stored in separate array by `recordID` field so they a
 
 When `Select` button is pushed initial contacts array is filtered using all `recordIds` and proper view controller is displayed.
 
-###KBContactsSelectionConfiguration
+### KBContactsSelectionConfiguration
 Was described in **Configuration** section.
 
-###KBContactsSelectionViewControllerDelegate
+### KBContactsSelectionViewControllerDelegate
 Cotains two methods:
 
 ```objective-c
@@ -218,7 +218,7 @@ Cotains two methods:
 
 that can be used to observe contacts modification. Thanks to @benaneesh.
 
-##Localized strings
+## Localized strings
 Library contains `NSLocalizedString` macro in proper places so you can generate `Localizable.strings` file with following literals:
 
 ```
@@ -230,8 +230,8 @@ Library contains `NSLocalizedString` macro in proper places so you can generate 
 "Sending emails from this device is not supported." = "Sending emails from this device is not supported.";
 ```
 
-##Dependencies
+## Dependencies
 **KBContactsSelection** uses [APAddressBook](https://github.com/Alterplay/APAddressBook) to easily manage iOS Address Book.
 
-##License
+## License
 **KBContactsSelection** is under `MIT License`. See [LICENSE](https://github.com/burczyk/KBContactsSelection/blob/master/LICENSE) file for more info.
